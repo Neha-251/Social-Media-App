@@ -3,10 +3,10 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
-const uploads = require("../middleware/uploads");
 const User = require("../models/users.model");
+require('dotenv').config()
 
-JWT_SECRET =  "nehasen@secret";
+
 
 router.post("/signup",  [
     body("email")
@@ -19,22 +19,21 @@ router.post("/signup",  [
         }
         return true;
     })],
-    uploads.single("profile_pic"),
+    
     async (req, res) => {
         try {
 
             const errors = validationResult(req);
-            console.log('errors', errors)
+            //console.log('errors', errors)
             
 
-            if (errors.isEmpty()) {
+            if (!errors.isEmpty()) {
                 return res.status(500).send({ errors: errors.array() });
             } 
 
             const salt = await bcrypt.genSalt(10);
             const secPass = await bcrypt.hash(req.body.password, salt);
             user = await User.create({
-                profile_pic: req.file.path,
                 name: req.body.name,
                 username: req.body.username,
                 email: req.body.email,
@@ -49,7 +48,7 @@ router.post("/signup",  [
                 }
             }
 
-            const auth_token = jwt.sign(data, JWT_SECRET)
+            const auth_token = jwt.sign(data, process.env.JWT_SECRET)
             
             return res.status(200).send({ authtoken: auth_token });
 
@@ -67,25 +66,31 @@ router.post("/login", async (req, res) => {
     
     try{
         const email = req.body.email;
-        const password = req.body.password;
-        console.log('password', password)
-        let user = await User.findOne({email: {$eq: email}});
-        const passwordCompare = await bcrypt.compare(password, user.password);
-        console.log('passwordCompare', passwordCompare)
+      //  const password = req.body.password;
+       // console.log('password', password)
+        let user = await User.findOne({email: {$eq: email}}).lean().exec();
 
-        if(!passwordCompare){
-            res.status(400).send({error: "Please try to login with correct credentials"})
+        if(user){
+            const passwordCompare = bcrypt.compare(req.body.password, user.password, function(err, result) {
+                // console.log(result);
+                // console.log(err);
+                if(result === false){
+                   return res.status(400).send({error: "Please try to login with correct credentials"})
+                } else {
+                    const data =  {
+                        user: {
+                            id: user.id
+                        }
+                    }
+                   const auth_token = jwt.sign(data, process.env.JWT_SECRET)
+                   return res.status(200).send({ authtoken: auth_token });
+                   // return res.send(user);
+                }
+            })
+        } else {
+            return res.status(400).send({"error": "Wrong Credentials"})
         }
-
-        const data =  {
-            user: {
-                id: user.id
-            }
-        }
-
-        const auth_token = jwt.sign(data, JWT_SECRET)
-            
-        return res.status(200).send({ authtoken: auth_token });
+       
 
     }
     catch(err) {
@@ -97,44 +102,6 @@ router.post("/login", async (req, res) => {
 
 
 
-router.get("/getAll", async (req, res) => {
-    try {
-        const user = await User.find().lean().exec();
-        return res.status(200).send({ user: user });
-
-    }
-    catch (err) {
-        return res.status(400).send({ error: err.message })
-    }
-})
-
-router.get("/getOne/:id", async (req, res) => {
-    try {
-        const user = await User.find(req.params.id).lean().exec();
-        return res.status(200).send({ user: user });
-    }
-    catch (err) {
-        return res.status(400).send({ error: err.message })
-    }
-})
-
-router.patch("/:id/edit", async (req, res) => {
-    try {
-        const user = await User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, }).lean().exec();
-        return res.status(201).send({ user: user });
-    } catch (error) {
-        res.status(500).send({ error: error.message });
-    }
-});
-
-router.patch("/:id/edit/profilepic", async (req, res) => {
-    try {
-        const user = await User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, }).lean().exec();
-        return res.status(201).send({ user: user });
-    } catch (error) {
-        res.status(500).send({ error: error.message });
-    }
-});
 
 
 module.exports = router;

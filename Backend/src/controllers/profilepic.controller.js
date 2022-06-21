@@ -12,28 +12,38 @@ router.post("/create", uploads.single("profile_pic"), async (req, res) => {
                 user_id: req.body.user_id
             })
 
-            
-            return res.status(200).send({ profilePic: profilePic });
-
+            return res.status(201).send({ profilePic: profilePic });
         }
         catch (err) {
             return res.status(400).send({ error: err.message })
         }
-})
+ })
 
 
 
-router.patch("/edit/profilepic", async (req, res) => {
+router.patch("/edit", uploads.single("profile_pic"), async (req, res) => {
     try {
-
         let userId = req.query.userId;
 
-        const profilePic = await Profilepic.findAndUpdate({ user_id: { $eq: userId} }, req.body, { new: true, }).lean().exec();
-        return res.status(201).send({ profilePic: profilePic });
+        const profilePic = await Profilepic.findOneAndUpdate(
+             { "user_id": userId},
+             { $set: { "profile_pic": req.file.path }},
+             { sort: { "points" : 1 }, upsert:true, returnNewDocument : true }
+        )
+        return res.status(201).send(profilePic );
     } catch (error) {
         res.status(500).send({ error: error.message });
     }
 });
 
+router.get("/get/single", async(req, res) => {
+    try {
+        let userId = req.query.userId;
 
+        const profilePic = await Profilepic.find({user_id: { $eq: userId }}).lean().exec();
+        return res.status(200).send(profilePic );
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
+})
 module.exports = router;

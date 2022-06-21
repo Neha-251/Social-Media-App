@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
+require('dotenv').config()
+
 
 
 const connect = () => {
-    return mongoose.connect("mongodb+srv://neha:neha@cluster0.is9rrlv.mongodb.net/?retryWrites=true&w=majority")
+    return mongoose.connect(process.env.MONGODB_URI);
 }
 
 
