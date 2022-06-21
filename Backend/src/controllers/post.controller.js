@@ -20,7 +20,7 @@ router.post("/create/single", uploads.single("post_file"), async (req, res) => {
         catch (err) {
             return res.status(400).send({ error: err.message })
         }
- })
+})
 
 
 
