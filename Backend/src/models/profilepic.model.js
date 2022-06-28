@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 
 const profilepicSchema = new mongoose.Schema(
     {
-        profile_pic: {type: String, required: true, unique: false},
+        profile_pic: {
+            data: Buffer,
+            contentType: String,
+        },
         user_id: {type: String, required: false, unique: true}
     }
 )

@@ -6,8 +6,8 @@ const commentSchema = new mongoose.Schema(
         parent_id: {type: String, required: true},
         comments:[
             {
-               user_id: {type: String, required: true},
-               comment: {type: String, required: true}
+               user_id: {type: String, required: false},
+               comment: {type: String, required: false}
             }
         ]
     },

@@ -1,0 +1,148 @@
+
+
+.home_mainDiv{
+    width: 80%;
+    border: 1px solid silver;
+    margin: 30px auto;
+    padding: 30px;
+}
+
+.post_img_show{
+    height: 200px;
+}
+
+.single_post{
+    border: 1px solid black;
+    padding: 30px;
+    margin: 10px auto;
+}
+
+
+.post_upperDiv{
+    display: flex;
+    height: 80px;
+    border-bottom: 1px solid rgb(217, 217, 217);
+}
+
+.post_upper_left{
+    display: flex;
+    width: 85%;
+    gap: 20px;
+    
+}
+
+.post_userImg{
+    height: 70px;
+    max-width: 70px;
+    min-width: 65px;
+    border: 1px solid deeppink;
+    border-radius: 50%;
+    margin-left: 20px;
+}
+
+.post_username{
+    font-size: 20px;
+}
+
+.post_usercity{
+    font-size: 14px;
+}
+
+.post_upper_right p{
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.post_middleDiv{
+    padding: 30px;
+}
+
+.post_title{
+    font-size: 25px;
+    margin: 0px auto;
+}
+
+.post_desc{
+    font-size: 18px;
+    margin: 10px auto;
+}
+
+.post_main_img{
+    height: 400px;
+    margin: 20px auto;
+    
+    max-width: 750px;
+}
+
+.post_lowerDiv1{
+    border-top: 1px solid rgb(217, 217, 217);
+    border-bottom: 1px solid rgb(217, 217, 217);
+    height: 50px;
+    display: flex;
+}
+
+.post_lowerDiv1 div{
+    width: 50%;
+    padding: 5px;
+    cursor:pointer;
+    /* border:1px solid rgb(217, 217, 217); */
+    text-align: center;
+}
+
+.post_lowerDiv1 div:nth-child(1){
+    border-right:1px solid rgb(217, 217, 217);
+    
+}
+
+.post_lowerDiv1 div:hover{
+    color: red;
+    font-weight: 700;
+}
+
+
+
+.post_lowerDiv2{
+    padding: 30px 0;
+
+}
+
+.post_comment1{
+    padding: 10px;
+    /* border: 1px solid red; */
+    display: flex;
+}
+
+.post_userImg_comment{
+    height: 50px;
+    max-width: 50px;
+    min-width: 45px;
+    border: 1px solid deeppink;
+    border-radius: 50%;
+    margin-right: 20px;
+    margin-top: 0px;
+}
+
+.post_comment_inp{
+  margin-top: 5px;
+  border: 1px solid rgb(217, 217, 217);
+  outline: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 50px;
+  border-radius: 10px;
+  width: 630px;
+}
+
+.comment_inp_send_icon{
+    font-size: 30px;
+    margin-top: 15px;
+    margin-left: -40px;
+    cursor: pointer;
+}
+
+
+.likeCount_div{
+    font-size: 12px;
+    color: grey;
+}

@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const reactionSchema = new mongoose.Schema(
     {
         parent_id: {type: String, required: true},
-        reactions: [
+        reactions:[ 
             {
                 user_id: { type: String, required: false},
                 reaction: {type: String, required: false}
@@ -17,6 +17,6 @@ const reactionSchema = new mongoose.Schema(
     }
 )
 
-const Reaction = mongoose.model("posts", reactionSchema);
+const Reaction = mongoose.model("reactions", reactionSchema);
 
 module.exports = Reaction;

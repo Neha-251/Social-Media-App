@@ -1,0 +1,27 @@
+
+nav{
+    background: linear-gradient(#045443, #044765); 
+    padding: 20px;
+    text-align: end;
+    display: flex;
+}
+
+.user_icon{
+    background: transparent;
+    font-size: 30px;
+    margin: 0 30px;
+    cursor: pointer;
+}
+
+.theme_icon{
+    background: transparent;
+    font-size: 30px;
+    
+    cursor: pointer;
+}
+
+.profile_img_nav{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}

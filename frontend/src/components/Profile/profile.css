@@ -1,0 +1,61 @@
+
+
+.profile_pic_div{
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+    
+    border-radius: 50%;
+    border: 1px solid gold;
+}
+
+.profile_pic_div::-webkit-scrollbar{
+    background-color: transparent;
+}
+
+.profile_pic_div::-webkit-scrollbar{
+    background-color: transparent;
+}
+
+.profile_mainDiv{
+    width: 70%;
+    padding: 30px;
+    margin: 100px auto;
+}
+
+.profile_container{
+    background-color: rgb(157, 187, 233);
+}
+
+.profile_form{
+    margin: 10px -20px;
+    text-align: center;
+    width: 30%;
+    
+}
+
+.pic_inp{
+    height: 25px;
+    width: 210px;
+    background-color: transparent;
+    font-size: 15px;
+   
+}
+
+.profile_img{
+    height: 200px;
+    width: 200px;
+}
+
+.pic_btn{
+    font-size: 15px;
+    cursor: pointer;
+    padding: 1px 5px;
+    border: 1px solid rgb(8, 85, 186);
+    background-color: transparent;
+}
+
+
+
+
+

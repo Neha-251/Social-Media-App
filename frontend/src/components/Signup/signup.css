@@ -1,0 +1,51 @@
+
+
+
+.heading_register{
+    background-color: transparent;
+    align-self: center;
+    margin-bottom: 30px;
+    font-size: 26px;
+}
+
+
+.signup_form{
+    padding: 50px;
+    background-color: #044765;
+    width: 360px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.form_inp{
+    height: 35px;
+    width: 350px;
+    margin: 5px auto;
+    outline: 1px solid #c80768;
+    border: none;
+    background-color: white;
+    padding: 2px 5px;
+}
+
+
+.altDiv{
+    margin: 10px 5px auto;
+}
+
+.or{
+    margin: 7px auto;
+}
+
+form{
+    background: transparent;
+}
+
+button{
+    margin: 10px 60px;
+    background-color: white;
+}
+
+.signup_btn{
+    /* margin-left: 80px; */
+    margin-top: 5px;
+}
