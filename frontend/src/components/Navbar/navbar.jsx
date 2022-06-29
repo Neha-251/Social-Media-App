@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 export const Navbar = () => {
 
     const navigate = useNavigate();
-    const {userImg, profile_img, userId, username, userImgFile} = useContext(userContext);
+    const {userImg, profile_img, userId, username, userImgFile, allData} = useContext(userContext);
    
     const [loading, setLoading] = useState(false);
     const [userFirstName, setUserFirstName] = useState("")
@@ -22,7 +22,7 @@ export const Navbar = () => {
 
     const getProfilePic = () => {
       if(userId) {
-        axios.get(`https://social-media-neha.herokuapp.com/profilepic/get/single?userId=${userId}`)
+        axios.get(`http://localhost:5000/profilepic/get/single?userId=${userId}`)
         .then(res => {
            
             let singleData = res.data.data;
@@ -59,20 +59,19 @@ export const Navbar = () => {
 
     }
 
-    useEffect(() => {
-        // let name = ""
-        // for(let i = 0; i < username.length; i++) {
-        //     if(username[i] === " "){
-        //         break;
-        //     } else {
-        //         name += username[i];
-        //     }
-        // }
-        // setUserFirstName(name)
-    }, [username])
+
+    const getData = () => {
+        axios.get("http://localhost:5000/post/get/all").then(res => {
+            allData(res.data.post);
+            console.log('res.data.post.length', res.data.post)
+        })
+        .catch(err => console.log(err))
+    
+    }
 
     useEffect(()=> {
         getProfilePic();
+        getData();
     }, [])
 
     
@@ -81,7 +80,6 @@ export const Navbar = () => {
             
             <div>{username}</div>
             
-            <ImHome3 className="user_icon" onClick={()=> {navigate("/home")}}/>
             <div> 
                 <FaUserAlt className={profile_img===""? "user_icon": "display_none"} onClick={()=> {navigate("/profile")}}/>
                 <img src={`data:image/png;base64,${profile_img}`} onClick={()=> {navigate("/profile")}} 
@@ -89,6 +87,7 @@ export const Navbar = () => {
                  alt="profile_img"/>
                 
             </div>
+            <ImHome3 className="user_icon" onClick={()=> {navigate("/home")}}/>
             
         
         </nav>

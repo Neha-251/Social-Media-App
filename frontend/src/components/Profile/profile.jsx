@@ -4,16 +4,13 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../context/usercontext";
 import { Navbar } from "../Navbar/navbar";
-import { Post } from "../Post/post";
 import "./profile.css"
-// import img from "....../Backend/src/uploads/1656170992938-250383785-IMG_20211130_123026.jpg";
 
 
 export const Profile = () => {
 
     const navigate = useNavigate();
     const { userImg, userId, profile_img, userImgFile, profileimg_file } = useContext(userContext);
-    // console.log('profile_img', profile_img);
 
     const [profileimgBase, setProfileImgBase] = useState("");
     const [profilePic, setProfilePic] = useState("");
@@ -67,15 +64,15 @@ export const Profile = () => {
 
         console.log('userId', userId)
         if (profile_img === "") {
-            axios.post("https://social-media-neha.herokuapp.com/profilepic/create", formData)
+            axios.post("http://localhost:5000/profilepic/create", formData)
                 .then(res => {
                     userImg(profilePicPreview)
                     userImgFile(profilePic)
                 }).then(res => alert("Profile Picture has been set")).catch(error => console.log(error))
         } else {
-            axios.delete(`https://social-media-neha.herokuapp.com/profilepic/delete?userId=${userId}`)
+            axios.delete(`http://localhost:5000/profilepic/delete?userId=${userId}`)
                 .then(
-                    axios.post("https://social-media-neha.herokuapp.com/profilepic/create", formData)
+                    axios.post("http://localhost:5000/profilepic/create", formData)
                         .then(res => {
                             userImg(profilePicPreview)
                             userImgFile(profilePic)
@@ -99,7 +96,7 @@ export const Profile = () => {
 
                 <div className="profile_mainDiv">
                     <div className="profile_pic_div">
-                        <img src={profilePicPreview === "" ? `data:image/png;base64,${profileimgBase}` : profilePicPreview} className="profile_img" alt="profile_pic" />
+                        <img src={profilePicPreview === "" ? `data:image/png;base64,${profile_img}` : profilePicPreview} className="profile_img" alt="profile_pic" />
                         {/* <img src={profileimgBase} className="profile_img" alt="profile_pic"/> */}
                     </div>
 

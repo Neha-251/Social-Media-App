@@ -21,7 +21,10 @@ router.post("/create", async (req, res) => {
 router.patch("/edit/:id", async (req, res) => {
     try {
 
-        const reaction = await Reaction.findByIdAndUpdate(req.params.id, req.body, {new: true}).lean().exec();
+        const reaction = await Reaction.findOneAndUpdate(
+            { "_id": req.params.id },
+            { $push: { "reactions": { "user_id": req.body.user_id, "reaction": req.body.reaction }}}
+        )
 
         return res.status(201).send(reaction);
 

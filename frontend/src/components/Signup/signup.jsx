@@ -31,7 +31,7 @@ export const Signup = () => {
         setLoading(true);
         e.preventDefault();
         console.log(data)
-        axios.post("https://social-media-neha.herokuapp.com/users/signup", data).then(res => console.log("successful")).catch(err => alert(err))
+        axios.post("http://localhost:5000/users/signup", data).then(res => console.log("successful")).catch(err => alert(err))
             .then(res => setLoading(false)).then(res => navigate("/"))
 
     }

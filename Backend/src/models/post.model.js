@@ -3,19 +3,16 @@ const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema(
     {
-        post_file: {
-            data: Buffer,
-            contentType: String,
-        },
+        post_file:{type: Array, required: false},
+        post_cloudinary_id:{type: Array, required: false},
+
         title: {type: String, required: false},
         description: {type: String, required: false},
 
         parent_id: {type: String, required: false},
 
-        profile_img: {
-            data: Buffer,
-            contentType: String,
-        },
+        profile_img:{type: String, required: false},
+        profile_img_cloudinary_id: {type: String, required: false},
         user_id: {type:mongoose.Schema.Types.ObjectId,
             ref:"users",
             required:false

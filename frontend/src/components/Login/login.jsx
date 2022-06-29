@@ -43,7 +43,7 @@ export const Login = () => {
             //let res = await fetch("https://social-media-neha.herokuapp.com/users/single?emailId=nehasen2510@gmail.com")
            
             
-            let res = await fetch(`https://social-media-neha.herokuapp.com/users/single?emailId=${email}`)
+            let res = await fetch(`http://localhost:5000/users/single?emailId=${email}`)
             let data = await res.json();
             console.log('data', data)
     
@@ -89,7 +89,7 @@ export const Login = () => {
         console.log('email', email)
         //
       //  https://social-media-neha.herokuapp.com/users/single?emailId=neha712513@gmail.com
-        axios.get(`https://social-media-neha.herokuapp.com/users/single?emailId=${email}`).then(res => setUserData(res.data)).catch(err => {
+        axios.get(`http://localhost:5000/users/single?emailId=${email}`).then(res => setUserData(res.data)).catch(err => {
             alert(err)
             console.log('err', err)
             setLoading(false)
@@ -112,7 +112,7 @@ export const Login = () => {
         setLoading(true);
         e.preventDefault();
         console.log(data)
-        axios.post("https://social-media-neha.herokuapp.com/users/login", data).then(res => {
+        axios.post("http://localhost:5000/users/login", data).then(res => {
             console.log('res', res)
 
             handleLogin()

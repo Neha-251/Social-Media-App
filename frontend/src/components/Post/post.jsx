@@ -63,47 +63,47 @@ export const Post = () => {
         }
 
 
-        axios.post("https://social-media-neha.herokuapp.com/reaction/create", reactionData)
+        axios.post("http://localhost:5000/reaction/create", reactionData)
             .then(res => {
                 console.log(res.data)
                 setReactionId(res.data._id);
                 console.log('res.data._id', res.data._id)
 
-                axios.post("https://social-media-neha.herokuapp.com/comment/create", commentData)
-                    .then(res => {
-                        console.log(res.data)
-                        console.log('res.data._id', res.data._id)
-                        setCommentId(res.data._id);
-                        setParentId(parent_id)
-                        // setTimeout(()=>{
-                        //     createPost(parentId);
-                        // }, 10000)
-
-                    }).catch(error => console.log(error))
 
             }).catch(error => console.log(error))
 
+        axios.post("http://localhost:5000/comment/create", commentData)
+            .then(res => {
+                console.log(res.data)
+                console.log('res.data._id', res.data._id)
+                setCommentId(res.data._id);
+                setParentId(parent_id)
+                // setTimeout(()=>{
+                //     createPost(parentId);
+                // }, 10000)
+
+            }).catch(error => console.log(error))
     }
 
     const createPost = () => {
         console.log('commentId', commentId)
         console.log('reactionId', reactionId)
         if (reactionId && commentId) {
-            
+
             let formData = new FormData();
             formData.append("post_file", postImg1);
             formData.append("title", title);
             formData.append("description", description);
             formData.append("parent_id", parentId);
             formData.append("user_id", userId);
-            
+
             formData.append("comment_id", commentId);
             console.log('commentId', commentId)
             formData.append("reaction_id", reactionId);
             console.log('reactionId', reactionId)
             formData.append("profile_img", profileimg_file);
 
-            axios.post("https://social-media-neha.herokuapp.com/post/create/single", formData)
+            axios.post("http://localhost:5000/post/create/single", formData)
                 .then(res => {
                     console.log(res.data)
 
@@ -111,9 +111,9 @@ export const Post = () => {
         }
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         createPost()
-    }, [commentId])
+    }, [commentId, reactionId])
 
 
     return (

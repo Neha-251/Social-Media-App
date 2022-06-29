@@ -11,6 +11,21 @@ const storage = multer.diskStorage({
       cb(null,  uniqueSuffix + '-' + file.originalname)
     }
 })
+
+
+
+module.exports = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+      let ext = path.extname(file.originalname);  
+      if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
+        cb(new Error("File type is not supported"), false);
+        return;
+      }
+      cb(null, true);
+    },
+});
+
 // const storage = multer.diskStorage({
 //     destination: function (req, file, cb) {
 //       cb(null, "../uploads");
@@ -21,28 +36,28 @@ const storage = multer.diskStorage({
 //     }
 // })
 
-const upload = multer({ storage: storage })
+// const upload = multer({ storage: storage })
 
-const fileFilter = (req, file, callback) =>{
+// const fileFilter = (req, file, callback) =>{
 
-    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-        callback(null, true);
-    } else {
-        callback(null, false);
+//     if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+//         callback(null, true);
+//     } else {
+//         callback(null, false);
 
-    }
+//     }
    
-}
+// }
   
 
-const options = multer({
-    storage,
-    fileFilter,
-    limits: {
-        fileSize: 1024 * 1024 * 5
-    }
-})
+// const options = multer({
+//     storage,
+//     fileFilter,
+//     limits: {
+//         fileSize: 1024 * 1024 * 5
+//     }
+// })
 
-const uploads = multer(options);
+// const uploads = multer(options);
 
-module.exports = uploads;
+// module.exports = uploads;

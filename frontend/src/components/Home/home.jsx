@@ -1,44 +1,78 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navbar } from "../Navbar/navbar"
 import "./home.css";
 import { FiSend } from "react-icons/fi";
+import { userContext } from "../context/usercontext";
+import {FcLike, FcIdea} from "react-icons/fc";
+import {RiEmotionLaughLine} from "react-icons/ri";
+import {AiFillLike} from "react-icons/ai";
+import {FaHandHoldingHeart} from "react-icons/fa";
 
 
 export const Home = () => {
 
 
-    const [data, setData] = useState([]);
+    const {data, allData, userId, profile_img} = useContext(userContext);
+    const [refresh, setRefresh] = useState(false);
 
-
+    const [commentInp, setCommentInp] = useState("");
 
     const getData = () => {
         axios.get("http://localhost:5000/post/get/all").then(res => {
-            setData(res.data.post);
-
+            allData(res.data.post);
             console.log('res.data.post.length', res.data.post)
         })
-            .catch(err => console.log(err))
+        .catch(err => console.log(err))
+        setRefresh(false);
+
     }
 
     useEffect(() => {
-        getData();
+       if(data.length === 0 || refresh === true){
+          getData();
+        }
 
-    }, [])
+    }, [refresh])
+
+    //console.log(refresh)
 
 
+    const handleLike = (id, string) => {
+        console.log("reactionId" ,id, string);
+        let obj = {
+            "user_id": userId,
+            "reaction": string
+        }
 
+        axios.patch(`http://localhost:5000/reaction/edit/${id}`, obj).then(res => {
+            console.log(res.data)
+            alert("Your Reaction Successfully added");
+        }).catch(err => alert("something went wrong"))
+    }
 
    
-    console.log('data', data)
+    const handleClickComment = (id) => {
+       // console.log("reactionId" ,id, string);
+        let obj = {
+            "user_id": userId,
+            "reaction": commentInp
+        }
+
+        axios.patch(`http://localhost:5000/comment/edit/${id}`, obj).then(res => {
+            console.log(res.data)
+            alert("Your Comment Successfully added");
+        }).catch(err => alert("something went wrong"))
+    }
+    console.log('commentInp', commentInp)
 
     return (
         <>
 
             <Navbar />
-
             <div className="home_mainDiv">
                
+            <p className="refresh_btn" onClick={()=> {setRefresh(true); alert("Please wait, data is being updated")}}>Refresh....</p>
                 
                 {
                     data.map((el) => {
@@ -65,20 +99,29 @@ export const Home = () => {
 
                                 <div className="likeCount_div">
                                     <p>Total Likes {el.reaction_id.reactions.length}</p>
-                                    <p>Total Likes {el.comment_id.comments.length}</p>
+                                    <p>Total Comments {el.comment_id.comments.length}</p>
                                 </div>
 
                                 <div className="post_lowerDiv1">
-                                    <div>Like</div>
+                                    <div className="reaction_icons_div">
+                                       
+                                      
+                                            <FcLike onClick={()=> handleLike(el.reaction_id._id, "love")} className="reaction_icons"/>
+                                            <RiEmotionLaughLine onClick={()=> handleLike(el.reaction_id._id, "laugh")} className="reaction_icons"/>
+                                            <AiFillLike onClick={()=> handleLike(el.reaction_id._id, "like")} className="reaction_icons"/>
+                                            <FaHandHoldingHeart onClick={()=> handleLike(el.reaction_id._id, "heart")} className="reaction_icons"/>
+                                            <FcIdea onClick={()=> handleLike(el.reaction_id._id, "idea")} className="reaction_icons"/>
+                                        
+                                    </div>
                                     <div>Share</div>
                                 </div>
 
                                 <div className="post_lowerDiv2">
                                     <div className="post_comment1">
-                                        <img className="post_userImg_comment" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80" alt="" />
+                                        <img className="post_userImg_comment" src={`data:image/png;base64,${profile_img}`} alt="" />
 
-                                        <input type="text" placeholder="Add a Comment..." className="post_comment_inp" />
-                                        <FiSend className="comment_inp_send_icon" />
+                                        <input type="text" placeholder="Add a Comment..." value={commentInp} onChange={(e) => {setCommentInp(e.target.value)}} className="post_comment_inp" />
+                                        <FiSend className="comment_inp_send_icon" onClick={()=> handleClickComment(el.comment_id._id)} />
 
                                     </div>
                                     <div className="post_comment2">

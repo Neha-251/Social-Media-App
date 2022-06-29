@@ -43,6 +43,22 @@ router.get("/get", async (req, res) => {
     }
 })
 
+router.patch("/edit/:id", async (req, res) => {
+    try {
+
+        const comment = await Comment.findOneAndUpdate(
+            { "_id": req.params.id },
+            { $push: { "comments": { "user_id": req.body.user_id, "comment": req.body.reaction }}}
+        )
+
+        return res.status(201).send(comment);
+
+    }
+    catch (err) {
+        return res.status(400).send({ error: err.message })
+    }
+})
+
 router.delete("/get", async (req, res) => {
     try {
         let parentId = req.query.parentId;
