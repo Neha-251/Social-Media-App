@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const cloudinary = require("../middleware/cloudinary");
 require('dotenv').config()
 const path = require("path");
+const { profile } = require("console");
 
 
 
@@ -26,7 +27,7 @@ router.post("/create", uploads.single("profile_pic"), async (req, res) => {
             user_id: req.body.user_id
         })
 
-        return res.status(201).send(result);
+        return res.status(201).send(profilepic);
     }
     catch (err) {
         console.log('err', err)
