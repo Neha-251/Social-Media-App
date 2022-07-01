@@ -56,7 +56,7 @@ router.get("/get/single", async(req, res) => {
         const profilePic = await Profilepic.findOne({user_id: { $eq: userId }}).lean().exec();
         return res.status(200).send(profilePic.profile_pic);
     } catch (error) {
-        res.status(500).send({ error: "error" });
+        res.status(500).send({ error: error.message });
     }
 })
 

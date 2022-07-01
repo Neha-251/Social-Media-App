@@ -1,9 +1,11 @@
 
 nav{
     background: linear-gradient(#045443, #044765); 
-    padding: 20px;
+    padding: 20px 30px;
     text-align: end;
     display: flex;
+    gap: 20px;
+    justify-content:space-between;
 }
 
 .user_icon{
@@ -21,7 +23,20 @@ nav{
 }
 
 .profile_img_nav{
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 45px;
+    max-width: 50px;
     border-radius: 50%;
+}
+
+.logout_btn{
+    margin-top: -12px;
+    margin-right: 
+    12px;
+
+}
+
+.userIcons{
+    display: flex;
+    gap: 20px;
 }

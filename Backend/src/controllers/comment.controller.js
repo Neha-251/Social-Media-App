@@ -33,7 +33,7 @@ router.get("/get", async (req, res) => {
     try {
         let parentId = req.query.parentId;
 
-        const comment = await Comment.find({parent_id: {$eq: parentId}}).lean().exec();
+        const comment = await Comment.findOne({parent_id: {$eq: parentId}}).populate("comments.user_id").lean().exec();
 
         return res.status(201).send(comment);
 

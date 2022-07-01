@@ -6,7 +6,10 @@ const commentSchema = new mongoose.Schema(
         parent_id: {type: String, required: true},
         comments:[
             {
-               user_id: {type: String, required: false},
+               user_id: {type:mongoose.Schema.Types.ObjectId,
+                ref:"users",
+                required:true
+               },
                comment: {type: String, required: false}
             }
         ]

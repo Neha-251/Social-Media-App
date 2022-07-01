@@ -3,6 +3,9 @@ import "./signup.css";
 import axios from "axios";
 import spinner from "../image/spinner3.gif";
 import { Link, useNavigate } from "react-router-dom";
+import "@sweetalert2/themes/material-ui/material-ui.css";
+import Swal from 'sweetalert2/src/sweetalert2.js'
+// @import '~@sweetalert2/themes/dark/dark.scss';
 
 export const Signup = () => {
 
@@ -30,10 +33,48 @@ export const Signup = () => {
     const handleSubmit = (e) => {
         setLoading(true);
         e.preventDefault();
-        console.log(data)
-        axios.post("http://localhost:5000/users/signup", data).then(res => console.log("successful")).catch(err => alert(err))
-            .then(res => setLoading(false)).then(res => navigate("/"))
 
+        if (data.name === "" || data.email === "" || data.password === "" || data.city === "" || data.dob === "") {
+            // alert("Please fill all the details")
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Please Fill Every Details!',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                heightAuto: false
+            })
+
+           
+            setLoading(false);
+
+        } else {
+            axios.post("http://localhost:5000/users/signup", data).then(res => console.log("successful")).catch(err => alert(err))
+                .then(res => {
+                    setLoading(false)
+                    Swal.fire({
+                        position: 'top-end',
+                       // icon: 'error',
+                        title: 'Please Fill Every Details!',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        heightAuto: false
+                    })
+                    navigate("/")
+                }).catch(err=> {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Something Went wrong!',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        heightAuto: false
+                    })
+                })
+        }
     }
 
 
@@ -50,7 +91,7 @@ export const Signup = () => {
             <div className="signup_form">
 
                 <h1 className="heading_register">Create a New Account</h1>
-                
+
 
                 <form action="" onSubmit={handleSubmit} >
 
@@ -63,9 +104,9 @@ export const Signup = () => {
                     <input type="submit" value="Create Account" className="signup_btn normal_btn" />
 
                     <div className="altDiv">
-                        Already have an account? 
+                        Already have an account?
                         <Link to="/" >
-                           <span className="text_btn"> Sign In</span>
+                            <span className="text_btn"> Sign In</span>
                         </Link>
                     </div>
                 </form>

@@ -7,27 +7,28 @@ const cloudinary = require("../middleware/cloudinary");
 
 
 
-router.post("/create", uploads.any("post_file", "profile_img"), async (req, res) => {
+router.post("/create", uploads.any("post_file"), async (req, res) => {
         try {
-            //console.log("files", req.files);
+            console.log("files", req.files);
 
             let post_files = [];
-            let profile_pic = {};
+            // let profile_pic = {};
             for(let i = 0; i < req.files.length; i++) {
                 if(req.files[i].fieldname === "post_file"){
                     post_files.push(await cloudinary.uploader.upload(req.files[i].path));
-                } else {
-                    profile_pic = await cloudinary.uploader.upload(req.files[i].path);
-                }
+                }// } else {
+                //     profile_pic = await cloudinary.uploader.upload(req.files[i].path);
+                // }
             }
 
             let post_files_arr = [];
             let post_files_publicId_arr = [];
             console.log('post_files_publicId_arr', post_files_publicId_arr)
-            let profile_pic_obj = profile_pic.secure_url;
-            console.log('profile_pic', profile_pic)
-            console.log('profile_pic_obj', profile_pic_obj)
-            let profile_pic_publicId_obj = profile_pic.public_id;
+
+            // let profile_pic_obj = profile_pic.secure_url;
+             console.log('post_files', post_files)
+            // console.log('profile_pic_obj', profile_pic_obj)
+            // let profile_pic_publicId_obj = profile_pic.public_id;
 
             for(let i = 0; i < post_files.length; i++) {
                 post_files_arr.push(post_files[i].secure_url);
@@ -44,8 +45,7 @@ router.post("/create", uploads.any("post_file", "profile_img"), async (req, res)
                 user_id: req.body.user_id,
                 reaction_id: req.body.reaction_id,
                 comment_id: req.body.comment_id,
-                profile_img: profile_pic_obj,
-                profile_img_cloudinary_id: profile_pic_publicId_obj
+                profile_img: req.body.profile_img,
             })
 
 
@@ -59,6 +59,7 @@ router.post("/create", uploads.any("post_file", "profile_img"), async (req, res)
 
         }
         catch (err) {
+            console.log('err', err)
             return res.status(420).send({ error: err.message })
         }
 })
@@ -68,9 +69,17 @@ router.post("/create", uploads.any("post_file", "profile_img"), async (req, res)
 
 router.get("/get/all", async(req, res) => {
     try {
-        const post = await Post.find().populate("user_id").populate("reaction_id").populate("comment_id").lean().exec();
+        let page = req.query.page || 6;
+        let pagesize = req.query.pagesize || 5;
+        let sort = req.query.sort;
+
+        const skip = (page - 1) * pagesize;
+
+        const post = await Post.find().skip(skip).limit(pagesize).sort({ _id: sort }).populate("user_id").populate("reaction_id").populate("comment_id").lean().exec();
+        const total_pages = Math.ceil(await Post.find().countDocuments()) / pagesize;
+
         console.log("called post")
-        return res.status(200).send({post: post});
+        return res.status(200).send({post: post, total_pages});
 
         
     } catch (error) {

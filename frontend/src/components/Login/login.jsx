@@ -5,7 +5,8 @@ import spinner from "../image/spinner3.gif";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { userContext } from "../context/usercontext";
 import { Navbar } from "../Navbar/navbar";
-
+import "@sweetalert2/themes/material-ui/material-ui.css";
+import Swal from 'sweetalert2/src/sweetalert2.js'
 
 export const Login = () => {
 
@@ -66,7 +67,36 @@ export const Login = () => {
         //console.log('userDetails', userDetails)
         setLoading(false);
         if(userId){
-            navigate("/profile")
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              Toast.fire({
+                icon: 'success',
+                title: 'Signed in successfully'
+            })
+            // setTimeout(() => {
+                navigate("/profile")
+
+            // }, 3000)
+        } else {
+            // Swal.fire({
+            //     position: 'top-end',
+            //     icon: 'warning',
+            //     title: 'Something Went Wrong!',
+            //     showConfirmButton: false,
+            //     timer: 2000,
+            //     timerProgressBar: true,
+            //     heightAuto: false
+            // })
         }
     }, [userDetails, userId])
     
@@ -90,8 +120,23 @@ export const Login = () => {
         //
       //  https://social-media-neha.herokuapp.com/users/single?emailId=neha712513@gmail.com
         axios.get(`http://localhost:5000/users/single?emailId=${email}`).then(res => setUserData(res.data)).catch(err => {
-            alert(err)
-            console.log('err', err)
+           
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              Toast.fire({
+                icon: 'warning',
+                title: 'Something Went Wrong!'
+              })
             setLoading(false)
         })
 
@@ -103,7 +148,37 @@ export const Login = () => {
        userLogin(userDetails);
        setLoading(false)
        if(userId){
-        navigate("/profile")
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'success',
+            title: 'Signed in successfully'
+        })
+
+       // setTimeout(() => {
+            navigate("/profile")
+
+       // }, 3000)
+       } else {
+        // Swal.fire({
+        //     position: 'top-end',
+        //     icon: 'warning',
+        //     title: 'Something Went Wrong!',
+        //     showConfirmButton: false,
+        //     timer: 2000,
+        //     timerProgressBar: true,
+        //     heightAuto: false
+        // })
        }
     }, [userData, userId])
 
@@ -113,12 +188,29 @@ export const Login = () => {
         e.preventDefault();
         console.log(data)
         axios.post("http://localhost:5000/users/login", data).then(res => {
-            console.log('res', res)
+           // console.log('res', res)
 
             handleLogin()
         }).catch(err => {
-            alert(err)
-            console.log('errPost', err)
+           
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              Toast.fire({
+                icon: 'warning',
+                title: 'Something Went Wrong!'
+            })
+            //console.log('errPost', err)
             setLoading(false)
         })
             

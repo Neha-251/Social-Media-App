@@ -4,35 +4,38 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../context/usercontext";
 import { Navbar } from "../Navbar/navbar";
-import "./profile.css"
+import "./profile.css";
+import "@sweetalert2/themes/material-ui/material-ui.css";
+import Swal from 'sweetalert2/src/sweetalert2.js'
 
 
 export const Profile = () => {
 
     const navigate = useNavigate();
-    const { userImg, userId, profile_img, userImgFile, profileimg_file } = useContext(userContext);
-
-    const [profileimgBase, setProfileImgBase] = useState("");
-    const [profilePic, setProfilePic] = useState("");
+    const { userImg, userId, profile_img } = useContext(userContext);
     const [profilePicPreview, setProfilePicPreview] = useState("");
-
-
+    const [profilePic, setProfilePic] = useState("");
     const [postFlag, setPostFlag] = useState(false);
 
 
     const getProfilePic = () => {
-
-
         axios.get(`http://localhost:5000/profilepic/get/single?userId=${userId}`)
             .then(res => {
-
-                let singleData = res.data.data;
-
-                setProfileImgBase(singleData);
-                userImg(singleData)
-
+                userImg(res.data)
             })
-            .catch(error => console.error(error))
+            .catch(error =>   
+               {console.log(error);
+
+            //     Swal.fire({
+            //     position: 'top-end',
+            //     icon: 'warning',
+            //     title: 'Something Went Wrong!',
+            //     showConfirmButton: false,
+            //     timer: 2000,
+            //     timerProgressBar: true,
+            //     heightAuto: false
+            // })
+        })
     }
 
     useEffect(() => {
@@ -42,7 +45,7 @@ export const Profile = () => {
     const handleProfilePicChange = (e) => {
         let file = e.target.files[0];
         setProfilePic(file);
-        changeFile(file);
+        changeFile(file)
     }
 
     const changeFile = (file) => {
@@ -63,21 +66,50 @@ export const Profile = () => {
 
 
         console.log('userId', userId)
-        if (profile_img === "") {
+        if (profilePicPreview === "") {
             axios.post("http://localhost:5000/profilepic/create", formData)
                 .then(res => {
-                    userImg(profilePicPreview)
-                    userImgFile(profilePic)
-                }).then(res => alert("Profile Picture has been set")).catch(error => console.log(error))
+
+                }).then(res => 
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'warning',
+                        title: 'Profile Picture has been set!',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        heightAuto: false
+                    })
+                    ).catch(error => console.log(error))
         } else {
             axios.delete(`http://localhost:5000/profilepic/delete?userId=${userId}`)
                 .then(
                     axios.post("http://localhost:5000/profilepic/create", formData)
                         .then(res => {
-                            userImg(profilePicPreview)
-                            userImgFile(profilePic)
-                        }).then(res => alert("Profile Picture has been Updated")).catch(error => console.log(error))
-                ).catch(err => alert("Something Went Wrong!!"))
+                            userImg(profilePic)
+                        }).then(res => 
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'warning',
+                                title: 'Profile Picture has been updated!',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                heightAuto: false
+                            })
+                            
+                            ).catch(error => console.log(error))
+                ).catch(err => 
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'warning',
+                        title: 'Something Went Wrong!',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        heightAuto: false
+                    })
+                )
         }
 
     }
@@ -96,13 +128,9 @@ export const Profile = () => {
 
                 <div className="profile_mainDiv">
                     <div className="profile_pic_div">
-                        <img src={profilePicPreview === "" ? `data:image/png;base64,${profile_img}` : profilePicPreview} className="profile_img" alt="profile_pic" />
-                        {/* <img src={profileimgBase} className="profile_img" alt="profile_pic"/> */}
+                        <img src={profilePicPreview === "" ? profile_img : profilePicPreview} className="profile_img" alt="profile_pic" />
                     </div>
 
-                    {/* <div >
-                    <img src={profilePicPreview} alt="profilePic"/>
-                </div> */}
 
                     <form action="" className="profile_form" onSubmit={handleSubmit}>
                         <input type="file" onChange={handleProfilePicChange} className="pic_inp" /> <br />

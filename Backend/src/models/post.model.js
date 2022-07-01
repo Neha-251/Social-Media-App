@@ -12,7 +12,6 @@ const postSchema = new mongoose.Schema(
         parent_id: {type: String, required: false},
 
         profile_img:{type: String, required: false},
-        profile_img_cloudinary_id: {type: String, required: false},
         user_id: {type:mongoose.Schema.Types.ObjectId,
             ref:"users",
             required:false

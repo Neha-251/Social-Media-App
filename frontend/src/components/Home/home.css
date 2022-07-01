@@ -75,6 +75,17 @@
     margin: 10px auto;
 }
 
+.post_main_imgDiv{
+    height: 450px;
+    width: 750px;
+    gap: 20px;
+    padding: 20px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    display: flex;
+
+}
 .post_main_img{
     height: 400px;
     margin: 20px auto;
@@ -156,6 +167,21 @@
     gap: 20px;
 }
 
+
+.like_show_div{
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    padding: 20px;
+    background-color: white;
+    overflow-y: scroll;
+    border: 1px solid gold;
+}
+
+.likeshow_p{
+    font-size: 30px;
+}
+
 .likeCount_div p{
     font-size: 10px;
     color: grey;
@@ -186,3 +212,59 @@
     0 0 20px seagreen;
 
 } 
+
+.commentMaindiv{
+    text-align: left;
+    display: flex;
+    margin-left: 50px;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+/* .comment_comment{
+    margin: 10px 120px;
+} */
+
+.comment_user_div{
+    display: flex;
+    margin-left: 50px;
+    margin-top: 20px;
+    gap: 20px;
+    border-bottom: 1px solid grey;
+}
+
+
+.comment_userImg{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.comment_username{
+    margin-top: 0px;
+    font-size: 18px;
+}
+
+.comment_author{
+    font-size: 14px;
+    background-color: rgb(197, 197, 197);
+}
+
+.comment_text{
+    background-color: rgb(222, 221, 221);
+    padding: 10px 20px;
+}
+
+.pageDiv{
+    width: 13%;
+    justify-content: space-around;
+   
+    margin: 20px auto;
+}
+
+.pageDiv button{
+    padding: 2px 8px;
+    margin: 0 5px;
+    background: transparent;
+    border: 1px solid deeppink;
+}
