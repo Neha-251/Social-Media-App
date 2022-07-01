@@ -9,7 +9,7 @@ For Alert: Sweetalert2.
 
 
 Work in Backend:
-  Pagination,
+  Pagination, 
   Sort by date,
   hashing user password, 
   signup, signin using json web token,
@@ -18,3 +18,7 @@ Work in Backend:
   
 Work in Frontend:
   Responsive UI
+  Login using Google Authentication
+  loading page
+  
+  
