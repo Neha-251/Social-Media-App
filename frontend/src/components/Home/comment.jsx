@@ -21,7 +21,7 @@ export const Comment = (el, setRefresh) => {
             "reaction": commentInp
         }
 
-        axios.patch(`http://localhost:5000/comment/edit/${id}`, obj).then(res => {
+        axios.patch(`https://social-media-neha.herokuapp.com/comment/edit/${id}`, obj).then(res => {
             console.log(res.data)
             
             Swal.fire({

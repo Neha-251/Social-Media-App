@@ -50,7 +50,7 @@ export const Signup = () => {
             setLoading(false);
 
         } else {
-            axios.post("http://localhost:5000/users/signup", data).then(res => console.log("successful")).catch(err => alert(err))
+            axios.post("https://social-media-neha.herokuapp.com/users/signup", data).then(res => console.log("successful")).catch(err => alert(err))
                 .then(res => {
                     setLoading(false)
                     Swal.fire({

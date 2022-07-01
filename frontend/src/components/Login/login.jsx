@@ -44,7 +44,7 @@ export const Login = () => {
             //let res = await fetch("https://social-media-neha.herokuapp.com/users/single?emailId=nehasen2510@gmail.com")
            
             
-            let res = await fetch(`http://localhost:5000/users/single?emailId=${email}`)
+            let res = await fetch(`https://social-media-neha.herokuapp.com/users/single?emailId=${email}`)
             let data = await res.json();
             console.log('data', data)
     
@@ -64,7 +64,7 @@ export const Login = () => {
 
     useEffect(()=> {
         userLogin(userDetails);
-        //console.log('userDetails', userDetails)
+     
         setLoading(false);
         if(userId){
             const Toast = Swal.mixin({
@@ -83,20 +83,12 @@ export const Login = () => {
                 icon: 'success',
                 title: 'Signed in successfully'
             })
-            // setTimeout(() => {
+           
                 navigate("/profile")
 
-            // }, 3000)
+           
         } else {
-            // Swal.fire({
-            //     position: 'top-end',
-            //     icon: 'warning',
-            //     title: 'Something Went Wrong!',
-            //     showConfirmButton: false,
-            //     timer: 2000,
-            //     timerProgressBar: true,
-            //     heightAuto: false
-            // })
+           
         }
     }, [userDetails, userId])
     
@@ -114,12 +106,11 @@ export const Login = () => {
     }
 
     const handleLogin = () => {
-       // console.log("googleInfo", googleInfo)
+       
         let email = data.email;
         console.log('email', email)
-        //
-      //  https://social-media-neha.herokuapp.com/users/single?emailId=neha712513@gmail.com
-        axios.get(`http://localhost:5000/users/single?emailId=${email}`).then(res => setUserData(res.data)).catch(err => {
+        
+        axios.get(`https://social-media-neha.herokuapp.com/users/single?emailId=${email}`).then(res => setUserData(res.data)).catch(err => {
            
             const Toast = Swal.mixin({
                 toast: true,
@@ -165,20 +156,12 @@ export const Login = () => {
             title: 'Signed in successfully'
         })
 
-       // setTimeout(() => {
+      
             navigate("/profile")
 
-       // }, 3000)
+    
        } else {
-        // Swal.fire({
-        //     position: 'top-end',
-        //     icon: 'warning',
-        //     title: 'Something Went Wrong!',
-        //     showConfirmButton: false,
-        //     timer: 2000,
-        //     timerProgressBar: true,
-        //     heightAuto: false
-        // })
+     
        }
     }, [userData, userId])
 
@@ -187,8 +170,8 @@ export const Login = () => {
         setLoading(true);
         e.preventDefault();
         console.log(data)
-        axios.post("http://localhost:5000/users/login", data).then(res => {
-           // console.log('res', res)
+        axios.post("https://social-media-neha.herokuapp.com/users/login", data).then(res => {
+           
 
             handleLogin()
         }).catch(err => {

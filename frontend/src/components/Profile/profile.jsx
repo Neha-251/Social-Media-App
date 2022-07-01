@@ -19,7 +19,7 @@ export const Profile = () => {
 
 
     const getProfilePic = () => {
-        axios.get(`http://localhost:5000/profilepic/get/single?userId=${userId}`)
+        axios.get(`https://social-media-neha.herokuapp.com/profilepic/get/single?userId=${userId}`)
             .then(res => {
                 userImg(res.data)
             })
@@ -67,7 +67,7 @@ export const Profile = () => {
 
         console.log('userId', userId)
         if (profilePicPreview === "") {
-            axios.post("http://localhost:5000/profilepic/create", formData)
+            axios.post("https://social-media-neha.herokuapp.com/profilepic/create", formData)
                 .then(res => {
 
                 }).then(res => 
@@ -82,9 +82,9 @@ export const Profile = () => {
                     })
                     ).catch(error => console.log(error))
         } else {
-            axios.delete(`http://localhost:5000/profilepic/delete?userId=${userId}`)
+            axios.delete(`https://social-media-neha.herokuapp.com/profilepic/delete?userId=${userId}`)
                 .then(
-                    axios.post("http://localhost:5000/profilepic/create", formData)
+                    axios.post("https://social-media-neha.herokuapp.com/profilepic/create", formData)
                         .then(res => {
                             userImg(profilePic)
                         }).then(res => 
