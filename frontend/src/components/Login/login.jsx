@@ -34,11 +34,11 @@ export const Login = () => {
     const responseGoogleSuccess = async(response) => {
        setLoading(true);
       
-        console.log("response-success", response.profileObj);
+        
         let email = response.profileObj.email
        
         try{
-            console.log('email', email)
+          
 
             //`https://social-media-neha.herokuapp.com/users/single?emailId=${email}`
             //let res = await fetch("https://social-media-neha.herokuapp.com/users/single?emailId=nehasen2510@gmail.com")
@@ -55,7 +55,7 @@ export const Login = () => {
             
         }
         catch(err) {
-            console.error('err', err)
+           
             setLoading(false);
         }
        
@@ -93,7 +93,23 @@ export const Login = () => {
     }, [userDetails, userId])
     
     const responseGoogleFailure = (response) => {
-        console.error("response-failure", response);
+        //console.error("response-failure", response);
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'warning',
+            title: 'Something Went Wrong!'
+          })
     }
 
 
