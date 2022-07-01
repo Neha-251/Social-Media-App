@@ -112,14 +112,16 @@ export const Home = () => {
 
                 {
                     data.map((el) => {
+                       // el.user_id.name
+                      //  console.log('el.user_id.name', el.user_id.name)
                         return (
                             <div className="single_post" key={el._id}>
                                 <div className="post_upperDiv">
                                     <div className="post_upper_left">
                                         <img className="post_userImg" src={el.profile_img} alt="user_profile_image" />
                                         <div>
-                                            <p className="post_username">{el.user_id.name}</p>
-                                            <p className="post_usercity">{el.user_id.city}</p>
+                                             {/* <p className="post_username">{el.user_id.name}</p>
+                                            <p className="post_usercity">{el.user_id.city}</p>  */}
                                         </div>
                                     </div>
                                     <div className="post_upper_right">
