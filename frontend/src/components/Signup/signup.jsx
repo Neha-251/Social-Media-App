@@ -50,13 +50,14 @@ export const Signup = () => {
             setLoading(false);
 
         } else {
-            axios.post("https://social-media-neha.herokuapp.com/users/signup", data).then(res => console.log("successful")).catch(err => alert(err))
+            console.log(data);
+            axios.post("https://social-media-neha.herokuapp.com/users/signup", data)
                 .then(res => {
                     setLoading(false)
                     Swal.fire({
                         position: 'top-end',
                        // icon: 'error',
-                        title: 'Please Fill Every Details!',
+                        title: 'SignUp Succesfull!',
                         showConfirmButton: false,
                         timer: 2000,
                         timerProgressBar: true,

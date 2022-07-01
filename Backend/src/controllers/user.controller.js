@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 const User = require("../models/users.model");
-require('dotenv').config()
+require('dotenv').config();
 
 
 
@@ -81,7 +81,7 @@ router.post("/signup",
                 }
             }
 
-            const auth_token = jwt.sign(data, JWT_SECRET)
+            const auth_token = jwt.sign(data, process.env.JWT_SECRET)
             
             return res.status(200).send({ authtoken: auth_token });
 
@@ -116,7 +116,7 @@ router.post("/login", async (req, res) => {
                             id: user.id
                         }
                     }
-                   const auth_token = jwt.sign(data, JWT_SECRET)
+                   const auth_token = jwt.sign(data, process.env.JWT_SECRET)
                    return res.status(200).send({ authtoken: auth_token });
                    // return res.send(user);
                 }
