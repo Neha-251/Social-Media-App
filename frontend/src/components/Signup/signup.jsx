@@ -51,7 +51,7 @@ export const Signup = () => {
 
         } else {
             console.log(data);
-            axios.post("https://social-media-neha.herokuapp.com/users/signup", data)
+            axios.post("https://social-media-neha2.herokuapp.com/users/signup", data)
                 .then(res => {
                     setLoading(false)
                     Swal.fire({

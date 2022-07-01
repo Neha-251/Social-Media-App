@@ -27,7 +27,7 @@ export const Navbar = () => {
 
     const getProfilePic = () => {
       if(userId) {
-        axios.get(`https://social-media-neha.herokuapp.com/profilepic/get/single?userId=${userId}`)
+        axios.get(`https://social-media-neha2.herokuapp.com/profilepic/get/single?userId=${userId}`)
         .then(res => {
            
             let singleData = res.data;
@@ -57,7 +57,7 @@ export const Navbar = () => {
 
 
     const getData = () => {
-        axios.get(`https://social-media-neha.herokuapp.com/post/get/all?page=${page}&pagesize=${pagesize}&sort=${sort}`).then(res => {
+        axios.get(`https://social-media-neha2.herokuapp.com/post/get/all?page=${page}&pagesize=${pagesize}&sort=${sort}`).then(res => {
             datatotalPage(res.data.total_pages);
             //console.log('res.data', res)
             allData(res.data.post);

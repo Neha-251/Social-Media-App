@@ -44,7 +44,7 @@ export const Login = () => {
             //let res = await fetch("https://social-media-neha.herokuapp.com/users/single?emailId=nehasen2510@gmail.com")
            
             
-            let res = await fetch(`https://social-media-neha.herokuapp.com/users/single?emailId=${email}`)
+            let res = await fetch(`https://social-media-neha2.herokuapp.com/users/single?emailId=${email}`)
             let data = await res.json();
             console.log('data', data)
     
@@ -126,7 +126,7 @@ export const Login = () => {
         let email = data.email;
         console.log('email', email)
         
-        axios.get(`https://social-media-neha.herokuapp.com/users/single?emailId=${email}`).then(res => setUserData(res.data)).catch(err => {
+        axios.get(`https://social-media-neha2.herokuapp.com/users/single?emailId=${email}`).then(res => setUserData(res.data)).catch(err => {
            
             const Toast = Swal.mixin({
                 toast: true,
@@ -186,7 +186,7 @@ export const Login = () => {
         setLoading(true);
         e.preventDefault();
         console.log(data)
-        axios.post("https://social-media-neha.herokuapp.com/users/login", data).then(res => {
+        axios.post("https://social-media-neha2.herokuapp.com/users/login", data).then(res => {
            
 
             handleLogin()

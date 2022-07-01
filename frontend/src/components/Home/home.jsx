@@ -25,7 +25,7 @@ export const Home = () => {
     const [pages, setPages] = useState([])
 
     const getData = () => {
-        axios.get(`https://social-media-neha.herokuapp.com/post/get/all?page=${page}&pagesize=${pagesize}&sort=${sort}`).then(res => {
+        axios.get(`https://social-media-neha2.herokuapp.com/post/get/all?page=${page}&pagesize=${pagesize}&sort=${sort}`).then(res => {
             allData(res.data.post);
             datatotalPage(res.data.total_pages);
            // console.log('res.data.post.length', res.data.post)
@@ -75,7 +75,7 @@ export const Home = () => {
             "reaction": string
         }
 
-        axios.patch(`https://social-media-neha.herokuapp.com/reaction/edit/${id}`, obj).then(res => {
+        axios.patch(`https://social-media-neha2.herokuapp.com/reaction/edit/${id}`, obj).then(res => {
             
             Swal.fire({
                 position: 'top-end',

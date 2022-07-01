@@ -13,7 +13,7 @@ export const CommentMap = (parentId) => {
     const [commentData, setCommentData] = useState([]);
 
     const getComment = () => {
-        axios.get(`https://social-media-neha.herokuapp.com/comment/get?parentId=${parentId.parentId}`).then(res => {
+        axios.get(`https://social-media-neha2.herokuapp.com/comment/get?parentId=${parentId.parentId}`).then(res => {
             setCommentData(res.data.comments);
 
 

@@ -10,7 +10,7 @@ export const Userimage = (userId) => {
     const [pic, setPic] = useState("");
 
     useEffect(()=> {
-        axios.get(`https://social-media-neha.herokuapp.com/profilepic/get/single?userId=${userId.userId}`)
+        axios.get(`https://social-media-neha2.herokuapp.com/profilepic/get/single?userId=${userId.userId}`)
         .then(res => setPic(res.data)).catch(err => console.log(err))
     })
 

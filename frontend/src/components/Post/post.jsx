@@ -109,7 +109,7 @@ export const Post = () => {
             }
 
 
-            axios.post("https://social-media-neha.herokuapp.com/reaction/create", reactionData)
+            axios.post("https://social-media-neha2.herokuapp.com/reaction/create", reactionData)
                 .then(res => {
                     console.log(res.data)
                     setReactionId(res.data._id);
@@ -137,7 +137,7 @@ export const Post = () => {
                     })
                 })
 
-            axios.post("https://social-media-neha.herokuapp.com/comment/create", commentData)
+            axios.post("https://social-media-neha2.herokuapp.com/comment/create", commentData)
                 .then(res => {
                     console.log(res.data)
                     console.log('res.data._id', res.data._id)
@@ -193,7 +193,7 @@ export const Post = () => {
             console.log('formData', formData)
 
 
-            axios.post("https://social-media-neha.herokuapp.com/post/create", formData)
+            axios.post("https://social-media-neha2.herokuapp.com/post/create", formData)
                 .then(res => {
                     //alert(res.data.message)
                     setLoading(false);
