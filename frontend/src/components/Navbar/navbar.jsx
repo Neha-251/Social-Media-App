@@ -59,9 +59,9 @@ export const Navbar = () => {
     const getData = () => {
         axios.get(`https://social-media-neha2.herokuapp.com/post/get/all?page=${page}&pagesize=${pagesize}&sort=${sort}`).then(res => {
             datatotalPage(res.data.total_pages);
-            //console.log('res.data', res)
+            console.log('res.data', res.data)
             allData(res.data.post);
-            //console.log('res.data.post.totalpages', res.data.total_pages)
+            console.log('res.data.post.totalpages', res.data.total_pages)
         })
         .catch(err => console.log(err))
     

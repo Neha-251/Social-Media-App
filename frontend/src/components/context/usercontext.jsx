@@ -20,6 +20,7 @@ export const  UserContextProvider = ({children}) => {
     
     //console.log('data', data)
    
+    console.log("data", data)
 
     const userLogin = (data) => {
         setUsername(data.username)
