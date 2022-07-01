@@ -86,9 +86,9 @@ export const Navbar = () => {
                 <ImHome3 className="user_icon" onClick={()=> {navigate("/home")}}/>
                 
             </div>
-            <div className="logout_btn_div" >
+            <div onClick={handlelogOut} className="logout_btn_div" >
                <AiOutlineLogout className="user_icon text_btn" />
-               <p onClick={handlelogOut} className="text_btn logout_btn">Logout</p>
+               <p className="text_btn logout_btn">Logout</p>
             </div>
         
         </nav>

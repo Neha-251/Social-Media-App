@@ -36,14 +36,21 @@ export const Signup = () => {
 
         if (data.name === "" || data.email === "" || data.password === "" || data.city === "" || data.dob === "") {
             // alert("Please fill all the details")
-            Swal.fire({
+            const Toast = Swal.mixin({
+                toast: true,
                 position: 'top-end',
-                icon: 'warning',
-                title: 'Please Fill Every Details!',
                 showConfirmButton: false,
-                timer: 2000,
+                timer: 4000,
                 timerProgressBar: true,
-                heightAuto: false
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              Toast.fire({
+                icon: 'error',
+                title: 'Please Fill All of the Details'
             })
 
            
@@ -54,25 +61,41 @@ export const Signup = () => {
             axios.post("https://social-media-neha2.herokuapp.com/users/signup", data)
                 .then(res => {
                     setLoading(false)
-                    Swal.fire({
+                    const Toast = Swal.mixin({
+                        toast: true,
                         position: 'top-end',
-                       // icon: 'error',
-                        title: 'SignUp Succesfull!',
                         showConfirmButton: false,
-                        timer: 2000,
+                        timer: 3000,
                         timerProgressBar: true,
-                        heightAuto: false
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      Toast.fire({
+                        icon: 'success',
+                        title: 'SignUp Successful'
                     })
                     navigate("/")
                 }).catch(err=> {
-                    Swal.fire({
+                    setLoading(false)
+
+                    const Toast = Swal.mixin({
+                        toast: true,
                         position: 'top-end',
-                        icon: 'error',
-                        title: 'Something Went wrong!',
                         showConfirmButton: false,
-                        timer: 2000,
+                        timer: 4000,
                         timerProgressBar: true,
-                        heightAuto: false
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      Toast.fire({
+                        icon: 'warning',
+                        title: 'Email is already registered!'
                     })
                 })
         }

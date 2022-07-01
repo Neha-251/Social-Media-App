@@ -43,9 +43,31 @@ export const Profile = () => {
     }, [])
 
     const handleProfilePicChange = (e) => {
-        let file = e.target.files[0];
-        setProfilePic(file);
-        changeFile(file)
+
+        if(userId) {
+            let file = e.target.files[0];
+            setProfilePic(file);
+            changeFile(file)
+        }
+        else {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              Toast.fire({
+                icon: 'warning',
+                title: 'Please Login to Set Profile Picture!'
+            })
+        }
+        
     }
 
     const changeFile = (file) => {
@@ -114,6 +136,29 @@ export const Profile = () => {
 
     }
 
+    const handlePostBtn = () => {
+        if(userId){
+            setPostFlag(true) 
+        } else {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'warning',
+            title: 'Please Login to post!'
+        })
+    }
+    }
+
    
 
     return (
@@ -144,7 +189,7 @@ export const Profile = () => {
 
             <div className="create_post">
                 <p>Create a new Post...</p>
-                <button onClick={() => { setPostFlag(true) }} className="normal_btn">Post</button>
+                <button onClick={() => handlePostBtn() } className="normal_btn">Post</button>
             </div>
 
 

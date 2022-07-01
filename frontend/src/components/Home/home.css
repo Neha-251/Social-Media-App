@@ -269,3 +269,8 @@
     border: 1px solid deeppink;
     cursor: pointer;
 }
+
+
+.post_user{
+    text-align: left;
+}

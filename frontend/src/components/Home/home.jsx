@@ -11,6 +11,7 @@ import { Comment } from "./comment";
 import "@sweetalert2/themes/material-ui/material-ui.css";
 import Swal from 'sweetalert2/src/sweetalert2.js'
 import { useLocation, useNavigate } from "react-router-dom";
+import { UserDetails } from "./userDetails";
 
 export const Home = () => {
 
@@ -119,10 +120,7 @@ export const Home = () => {
                                 <div className="post_upperDiv">
                                     <div className="post_upper_left">
                                         <img className="post_userImg" src={el.profile_img} alt="user_profile_image" />
-                                        <div>
-                                             {/* <p className="post_username">{el.user_id.name}</p>
-                                            <p className="post_usercity">{el.user_id.city}</p>  */}
-                                        </div>
+                                        <UserDetails user={el.user_id}/>
                                     </div>
                                     <div className="post_upper_right">
                                         <p>+ Follow</p>

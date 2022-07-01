@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import GoogleLogin from 'react-google-login';
 import axios from "axios";
 import spinner from "../image/spinner3.gif";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { userContext } from "../context/usercontext";
 import { Navbar } from "../Navbar/navbar";
 import "@sweetalert2/themes/material-ui/material-ui.css";
@@ -36,28 +36,41 @@ export const Login = () => {
       
         
         let email = response.profileObj.email
-       
-        try{
-          
 
-            //`https://social-media-neha.herokuapp.com/users/single?emailId=${email}`
-            //let res = await fetch("https://social-media-neha.herokuapp.com/users/single?emailId=nehasen2510@gmail.com")
-           
-            
-            let res = await fetch(`https://social-media-neha2.herokuapp.com/users/single?emailId=${email}`)
-            let data = await res.json();
-            console.log('data', data)
-    
-           // setUserData(data)
-            setuserDetails({ ...userDetails, username: data.name, userId: data._id, isLoggedIn: true });
-            
-                
-            
-        }
-        catch(err) {
-           
+        if(email){
+            try{
+                let res = await fetch(`https://social-media-neha2.herokuapp.com/users/single?emailId=${email}`)
+                let data = await res.json();
+                console.log('data', data)
+        
+               // setUserData(data)
+                setuserDetails({ ...userDetails, username: data.name, userId: data._id, isLoggedIn: true });
+            }
+            catch(err) {
+               
+                setLoading(false);
+            }
+        } else {
             setLoading(false);
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              Toast.fire({
+                icon: 'warning',
+                title: 'Email is not registered!'
+            })
         }
+       
+        
        
        
     }
@@ -142,7 +155,7 @@ export const Login = () => {
               
               Toast.fire({
                 icon: 'warning',
-                title: 'Something Went Wrong!'
+                title: 'Email is not registered!'
               })
             setLoading(false)
         })
@@ -207,7 +220,7 @@ export const Login = () => {
               
               Toast.fire({
                 icon: 'warning',
-                title: 'Something Went Wrong!'
+                title: 'Email is not Registered!'
             })
             //console.log('errPost', err)
             setLoading(false)
