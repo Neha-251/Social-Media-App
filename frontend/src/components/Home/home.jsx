@@ -123,7 +123,25 @@ export const Home = () => {
             <Navbar />
             <div className="home_mainDiv">
 
-                <p className="refresh_btn" onClick={() => { dataRefresh(true); alert("Please wait, data is being updated") }}>Refresh....</p>
+                <p className="refresh_btn" onClick={() => { dataRefresh(true); 
+                   
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+        
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Please wait, data is being updated!'
+                    })
+                    }}>Refresh....</p>
 
                 {
                     data.map((el) => {

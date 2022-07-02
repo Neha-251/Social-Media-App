@@ -24,27 +24,42 @@ export const Comment = (el, setRefresh) => {
         axios.patch(`https://social-media-neha2.herokuapp.com/comment/edit/${id}`, obj).then(res => {
             console.log(res.data)
             
-            Swal.fire({
+            const Toast = Swal.mixin({
+                toast: true,
                 position: 'top-end',
-               // icon: 'warning',
-                title: 'Your Comment Successfully added',
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
-                heightAuto: false
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'success',
+                title: 'Your Comment is added!'
             })
             dataRefresh(true)
 
-        }).catch(err => 
-            Swal.fire({
+        }).catch((err) => 
+            {const Toast = Swal.mixin({
+                toast: true,
                 position: 'top-end',
-                icon: 'warning',
-                title: 'Something went wrong',
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
-                heightAuto: false
-            }))
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'warning',
+                title: 'Something went wrong!'
+            })
+        })
     }
 
 
