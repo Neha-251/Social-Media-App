@@ -29,7 +29,7 @@ export const Home = () => {
         axios.get(`https://social-media-neha2.herokuapp.com/post/get/all?page=${page}&pagesize=${pagesize}&sort=${sort}`).then(res => {
             allData(res.data.post);
             datatotalPage(res.data.total_pages);
-           // console.log('res.data.post.length', res.data.post)
+            // console.log('res.data.post.length', res.data.post)
         })
             .catch(err => console.log(err))
         dataRefresh(false);
@@ -44,9 +44,9 @@ export const Home = () => {
     // }, [])
 
     useEffect(() => {
-       // if (data.length === 0) {
-            getData();
-       // }
+        // if (data.length === 0) {
+        getData();
+        // }
 
     }, [refresh, page, pagesize, sort])
 
@@ -77,31 +77,45 @@ export const Home = () => {
         }
 
         axios.patch(`https://social-media-neha2.herokuapp.com/reaction/edit/${id}`, obj).then(res => {
-            
-            Swal.fire({
+
+            const Toast = Swal.mixin({
+                toast: true,
                 position: 'top-end',
-               // icon: 'warning',
-                title: 'Your Reaction Successfully added',
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
-                heightAuto: false
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'success',
+                title: 'You Liked a Post!'
             })
             dataRefresh(true)
-        }).catch(err => 
-            Swal.fire({
+        }).catch((err) => {
+            const Toast = Swal.mixin({
+                toast: true,
                 position: 'top-end',
-                icon: 'warning',
-                title: 'Something went wrong',
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
-                heightAuto: false
-            }))
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            Toast.fire({
+                icon: 'warning',
+                title: 'Something went wrong!'
+            })
+        })
     }
 
 
-   
+
 
     return (
         <>
@@ -113,14 +127,14 @@ export const Home = () => {
 
                 {
                     data.map((el) => {
-                       // el.user_id.name
-                      //  console.log('el.user_id.name', el.user_id.name)
+                        // el.user_id.name
+                        //  console.log('el.user_id.name', el.user_id.name)
                         return (
                             <div className="single_post" key={el._id}>
                                 <div className="post_upperDiv">
                                     <div className="post_upper_left">
                                         <img className="post_userImg" src={el.profile_img} alt="user_profile_image" />
-                                        <UserDetails user={el.user_id}/>
+                                        <UserDetails user={el.user_id} />
                                     </div>
                                     <div className="post_upper_right">
                                         <p>+ Follow</p>
@@ -144,7 +158,7 @@ export const Home = () => {
                                 </div>
 
 
-                               
+
 
 
                                 <div className="post_lowerDiv1">
@@ -161,8 +175,8 @@ export const Home = () => {
                                     <div>Share</div>
                                 </div>
 
-                                <Comment el={el}/>
-                                
+                                <Comment el={el} />
+
                             </div>
                         )
                     })
