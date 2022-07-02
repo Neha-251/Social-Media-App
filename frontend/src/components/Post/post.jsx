@@ -83,6 +83,22 @@ export const Post = () => {
 
     const handleDelaySubmit = (e) => {
         e.preventDefault();
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'warning',
+            title: 'Please wait a few seconds to create another post!'
+        })
         setTimeout(() => {
             setSubmitFlag(true);
         }, 15000)
