@@ -12,10 +12,14 @@ export const Login = () => {
 
     const { userLogin, userId } = useContext(userContext);
 
-    const [userDetails, setuserDetails] = useState({
+    const [uDetails, setuDetails] = useState({
         username: "",
         userId: "",
-        isLoggedIn: false
+        isLoggedIn: false,
+        email: "",
+        password: "",
+        city: "",
+        dob: "",
     })
 
     const navigate = useNavigate();
@@ -26,28 +30,32 @@ export const Login = () => {
         email: "",
         password: ""
     });
-    
+
+
 
     const [userData, setUserData] = useState({});
 
 
-    const responseGoogleSuccess = async(response) => {
-       setLoading(true);
-      
-        
+    const responseGoogleSuccess = async (response) => {
+        setLoading(true);
+
+
         let email = response.profileObj.email
 
-        if(email){
-            try{
+        if (email) {
+            try {
                 let res = await fetch(`https://social-media-neha2.herokuapp.com/users/single?emailId=${email}`)
                 let data = await res.json();
-                console.log('data', data)
-        
-               // setUserData(data)
-                setuserDetails({ ...userDetails, username: data.name, userId: data._id, isLoggedIn: true });
+
+                // setUserData(data)
+                setuDetails({ ...uDetails, 
+                    username: data.name, userId: data._id, isLoggedIn: true, password: data.password,
+                     email: data.email, dob: data.dob, city: data.city });
+                
+                userLogin(uDetails);
             }
-            catch(err) {
-               
+            catch (err) {
+
                 setLoading(false);
             }
         } else {
@@ -59,27 +67,28 @@ export const Login = () => {
                 timer: 4000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
-                  toast.addEventListener('mouseenter', Swal.stopTimer)
-                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
-              })
-              
-              Toast.fire({
+            })
+
+            Toast.fire({
                 icon: 'warning',
                 title: 'Email is not registered!'
             })
         }
-       
-        
-       
-       
+
+
+
+
     }
 
-    useEffect(()=> {
-        userLogin(userDetails);
-     
+
+    useEffect(() => {
+        userLogin(uDetails);
+
         setLoading(false);
-        if(userId){
+        if (userId) {
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -87,24 +96,24 @@ export const Login = () => {
                 timer: 2000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
-                  toast.addEventListener('mouseenter', Swal.stopTimer)
-                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
-              })
-              
-              Toast.fire({
+            })
+
+            Toast.fire({
                 icon: 'success',
                 title: 'Signed in successfully'
             })
-           
-                navigate("/profile")
 
-           
+            navigate("/profile")
+
+
         } else {
-           
+
         }
-    }, [userDetails, userId])
-    
+    }, [uDetails, userId])
+
     const responseGoogleFailure = (response) => {
         //console.error("response-failure", response);
         const Toast = Swal.mixin({
@@ -114,15 +123,15 @@ export const Login = () => {
             timer: 3000,
             timerProgressBar: true,
             didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
-          })
-          
-          Toast.fire({
+        })
+
+        Toast.fire({
             icon: 'warning',
             title: 'Something Went Wrong!'
-          })
+        })
     }
 
 
@@ -135,12 +144,12 @@ export const Login = () => {
     }
 
     const handleLogin = () => {
-       
+
         let email = data.email;
-        console.log('email', email)
-        
+
+
         axios.get(`https://social-media-neha2.herokuapp.com/users/single?emailId=${email}`).then(res => setUserData(res.data)).catch(err => {
-           
+
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -148,63 +157,62 @@ export const Login = () => {
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
-                  toast.addEventListener('mouseenter', Swal.stopTimer)
-                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
-              })
-              
-              Toast.fire({
+            })
+
+            Toast.fire({
                 icon: 'warning',
                 title: 'Email is not registered!'
-              })
+            })
             setLoading(false)
         })
 
     }
 
     useEffect(() => {
-       console.log("userData", userData)
-       setuserDetails({ ...userDetails, username: userData.name, userId: userData._id, isLoggedIn: true });
-       userLogin(userDetails);
-       setLoading(false)
-       if(userId){
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          
-          Toast.fire({
-            icon: 'success',
-            title: 'Signed in successfully'
-        })
+       
+        setuDetails({ ...uDetails, username: userData.name, userId: userData._id, isLoggedIn: true, password: userData.password,
+            email: userData.email, dob: userData.dob, city: userData.city });
+        userLogin(uDetails);
+        setLoading(false)
+        if (userId) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
 
-      
+            Toast.fire({
+                icon: 'success',
+                title: 'Signed in successfully'
+            })
+
+
             navigate("/profile")
 
-    
-       } else {
-     
-       }
+
+        } else {
+
+        }
     }, [userData, userId])
 
-   // console.log(userDetails)
     const handleSubmit = (e) => {
         setLoading(true);
         e.preventDefault();
-        console.log(data)
         axios.post("https://social-media-neha2.herokuapp.com/users/login", data).then(res => {
-           
+
 
             handleLogin()
         }).catch(err => {
-           
+
 
             const Toast = Swal.mixin({
                 toast: true,
@@ -213,31 +221,28 @@ export const Login = () => {
                 timer: 2000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
-                  toast.addEventListener('mouseenter', Swal.stopTimer)
-                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
-              })
-              
-              Toast.fire({
+            })
+
+            Toast.fire({
                 icon: 'warning',
                 title: 'Email is not Registered!'
             })
-            //console.log('errPost', err)
             setLoading(false)
         })
-            
+
     }
 
 
 
-    //console.log(data);
 
     return (
         <><div className={loading === true ? "loading_screen" : "display_none"}>
             <img src={spinner} alt="spinner" />
         </div>
 
-        <Navbar/>
             <div className="signup_form">
 
                 <h1 className="heading_register">Log In</h1>

@@ -18,13 +18,20 @@
 }
 
 .profile_mainDiv{
-    width: 70%;
-    padding: 30px;
-    margin: 100px auto;
+    width: 45%;
+    margin: 0px auto;
+}
+
+.userDetails{
+    width: 45%;
 }
 
 .profile_container{
-    background-color: rgb(157, 187, 233);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 30px;
+    display: flex;
+    margin: 50px auto;
+    justify-content: space-around;
 }
 
 .profile_form{
@@ -39,6 +46,7 @@
     width: 210px;
     background-color: transparent;
     font-size: 15px;
+    margin-left: 15%;
    
 }
 
@@ -51,11 +59,29 @@
     font-size: 15px;
     cursor: pointer;
     padding: 1px 5px;
-    border: 1px solid rgb(8, 85, 186);
-    background-color: transparent;
+   margin-left: 55%;
+}
+
+@media only screen and (min-width: 275px) and (max-width: 475px) {
+.profile_container{
+    flex-direction: column;
+    padding: 10px;
+}
+.profile_form{
+    width: 90%;
+    
+}
+.userDetails{
+    width: 95%;
+    padding: 10px;
+}
+.create_post{
+    width: 90%;
+    height: 50px;
 }
 
 
+}
 
 
 

@@ -29,9 +29,8 @@ export const Home = () => {
         axios.get(`https://social-media-neha2.herokuapp.com/post/get/all?page=${page}&pagesize=${pagesize}&sort=${sort}`).then(res => {
             allData(res.data.post);
             datatotalPage(res.data.total_pages);
-            // console.log('res.data.post.length', res.data.post)
         })
-            .catch(err => console.log(err))
+            .catch()
         dataRefresh(false);
 
     }
@@ -54,23 +53,19 @@ export const Home = () => {
         navigate(`/home?page=${e}&pagesize=${pagesize}&sort=${sort}`)
     }
 
-    //console.log(refresh)
 
     useEffect(() => {
 
         let arr = [];
         let limit = Math.round(totalPage);
-        //console.log('limit', limit)
 
         for (let i = 1; i <= limit; i++) {
             arr.push(i);
         }
         setPages(arr);
-        // console.log("pages",pages)
     }, [data])
 
     const handleLike = (id, string) => {
-        console.log("reactionId", id, string);
         let obj = {
             "user_id": userId,
             "reaction": string
@@ -120,7 +115,6 @@ export const Home = () => {
     return (
         <>
 
-            <Navbar />
             <div className="home_mainDiv">
 
                 <p className="refresh_btn" onClick={() => { dataRefresh(true); 
@@ -146,7 +140,6 @@ export const Home = () => {
                 {
                     data.map((el) => {
                         // el.user_id.name
-                        //  console.log('el.user_id.name', el.user_id.name)
                         return (
                             <div className="single_post" key={el._id}>
                                 <div className="post_upperDiv">

@@ -31,7 +31,7 @@ router.post("/create", uploads.single("profile_pic"), async (req, res) => {
     }
     catch (err) {
         console.log('err', err)
-        return res.status(400).send({ error: err.message })
+        return res.status(410).send({ error: err.message })
     }
 })
 

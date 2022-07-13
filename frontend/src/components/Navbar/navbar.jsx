@@ -1,7 +1,8 @@
-import {FaUserAlt} from "react-icons/fa";
-import {BsFillMoonStarsFill} from "react-icons/bs";
-import {ImHome3} from "react-icons/im";
-import {AiOutlineLogout} from "react-icons/ai";
+import { FaUserAlt, FaUserFriends } from "react-icons/fa";
+import { BsFillMoonStarsFill } from "react-icons/bs";
+import { ImHome3 } from "react-icons/im";
+import { TbMessage } from "react-icons/tb";
+import { AiOutlineLogout } from "react-icons/ai";
 import "./navbar.css";
 import axios from "axios";
 import { useState } from "react";
@@ -15,8 +16,8 @@ import Swal from 'sweetalert2/src/sweetalert2.js'
 export const Navbar = () => {
 
     const navigate = useNavigate();
-    const {userImg, profile_img, userId, username, datatotalPage, allData, userLogin} = useContext(userContext);
-   
+    const { userImg, profile_img, userId, isLoggedin, username, datatotalPage, allData, userLogin } = useContext(userContext);
+
     const [loading, setLoading] = useState(false);
 
 
@@ -26,71 +27,82 @@ export const Navbar = () => {
     const sort = new URLSearchParams(search).get('sort') || -1;
 
     const getProfilePic = () => {
-      if(userId) {
-        axios.get(`https://social-media-neha2.herokuapp.com/profilepic/get/single?userId=${userId}`)
-        .then(res => {
-           
-            let singleData = res.data;
-        
-            userImg(singleData);
+        if (userId) {
+            axios.get(`https://social-media-neha2.herokuapp.com/profilepic/get/single?userId=${userId}`)
+                .then(res => {
 
-        
-        })
-        .catch(err => {
-            console.log(err)
-            setLoading(false)
-        })
-      }
-       
+                    let singleData = res.data;
+
+                    userImg(singleData);
+
+
+                })
+                .catch(err => {
+                    setLoading(false)
+                })
+        }
+
 
     }
 
     const handlelogOut = () => {
-       
-       if(window.confirm("Are Ypu Sure you want to logout?") === true){
-        userLogin("");
-        userImg("");
-        navigate("/");
-       }
-       
+
+        if (window.confirm("Are Ypu Sure you want to logout?") === true) {
+            userLogin(null);
+            userImg("");
+            navigate("/");
+        }
+
     }
 
 
     const getData = () => {
         axios.get(`https://social-media-neha2.herokuapp.com/post/get/all?page=${page}&pagesize=${pagesize}&sort=${sort}`).then(res => {
             datatotalPage(res.data.total_pages);
-            console.log('res.data', res.data)
             allData(res.data.post);
-            console.log('res.data.post.totalpages', res.data.total_pages)
         })
-        .catch(err => console.log(err))
-    
+            .catch()
+
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         getProfilePic();
         getData();
     }, [])
 
-    
+
     return (
         <nav>
-            
-            
-            <div className="userIcons"> 
-                <div>{username}</div>
-                <FaUserAlt className={profile_img===""? "user_icon": "display_none"} onClick={()=> {navigate("/profile")}}/>
-                <img src={profile_img} onClick={()=> {navigate("/profile")}} 
-                className={profile_img===""? "display_none":"profile_img_nav"}
-                 alt="profile_img"/>
-                <ImHome3 className="user_icon" onClick={()=> {navigate("/home")}}/>
-                
-            </div>
-            <div onClick={handlelogOut} className="logout_btn_div" >
-               <AiOutlineLogout className="user_icon text_btn" />
-               <p className="text_btn logout_btn">Logout</p>
-            </div>
-        
+
+            {userId ?
+                <>
+                    <div className="userIcons">
+
+                        <div>
+
+                            <FaUserAlt className={profile_img === "" ? "user_icon" : "display_none"} onClick={() => { navigate("/profile") }} />
+                            <img src={profile_img} onClick={() => { navigate("/profile") }}
+                                className={profile_img === "" ? "display_none" : "profile_img_nav"}
+                                alt="profile_img"
+                            />
+                            {/* <p>{username}</p> */}
+
+                        </div>
+
+                        <ImHome3 className="user_icon" onClick={() => { navigate("/home") }} />
+
+                        <FaUserFriends className="friends_icon user_icon" onClick={() => { navigate("/friends") }} />
+
+                        <TbMessage className="friends_icon user_icon" onClick={() => { navigate("/chat") }} />
+
+                    </div>
+                    <div onClick={handlelogOut} className="logout_btn_div" >
+                        <AiOutlineLogout className="user_icon text_btn" />
+                        <p className="text_btn logout_btn">Logout</p>
+                    </div>
+                </>
+                : null
+            }
         </nav>
     )
 }

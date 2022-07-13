@@ -7,15 +7,17 @@ import { Navbar } from "../Navbar/navbar";
 import "./profile.css";
 import "@sweetalert2/themes/material-ui/material-ui.css";
 import Swal from 'sweetalert2/src/sweetalert2.js'
+import { Modal } from "../Post/post";
 
 
 export const Profile = () => {
 
     const navigate = useNavigate();
-    const { userImg, userId, profile_img } = useContext(userContext);
+    const { username, userImg, userId, profile_img, userDob, userCity, userEmail, userPassword, postFlag, setPostFlag } = useContext(userContext);
+
     const [profilePicPreview, setProfilePicPreview] = useState("");
     const [profilePic, setProfilePic] = useState("");
-    const [postFlag, setPostFlag] = useState(false);
+
 
 
     const getProfilePic = () => {
@@ -24,7 +26,7 @@ export const Profile = () => {
                 userImg(res.data)
             })
             .catch(error =>   
-               {console.log(error);
+               {
 
             //     Swal.fire({
             //     position: 'top-end',
@@ -87,7 +89,6 @@ export const Profile = () => {
         //let userId = "62b5dbf70d1f6f18934eabf7";
 
 
-        console.log('userId', userId)
         if (profilePicPreview === "") {
             axios.post("https://social-media-neha2.herokuapp.com/profilepic/create", formData)
                 .then(res => {
@@ -102,7 +103,7 @@ export const Profile = () => {
                         timerProgressBar: true,
                         heightAuto: false
                     })
-                    ).catch(error => console.log(error))
+                    ).catch()
         } else {
             axios.delete(`https://social-media-neha2.herokuapp.com/profilepic/delete?userId=${userId}`)
                 .then(
@@ -120,7 +121,7 @@ export const Profile = () => {
                                 heightAuto: false
                             })
                             
-                            ).catch(error => console.log(error))
+                            ).catch()
                 ).catch(err => 
                     Swal.fire({
                         position: 'top-end',
@@ -157,16 +158,17 @@ export const Profile = () => {
             title: 'Please Login to post!'
         })
     }
-    }
+    } 
 
-   
+  
+
 
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
 
             <div>
-                {postFlag===true && navigate("/post")}
+                {postFlag===true && <Modal/>}
             </div>
 
             <div className="profile_container">
@@ -179,17 +181,29 @@ export const Profile = () => {
 
                     <form action="" className="profile_form" onSubmit={handleSubmit}>
                         <input type="file" onChange={handleProfilePicChange} className="pic_inp" /> <br />
-                        <input type="submit" value="Upload" className="pic_btn" />
+                        <input type="submit" value="Upload" className="normal_btn pic_btn" />
                     </form>
                 </div>
+
+                <div className="userDetails">
+                    <div className="showUserDetails">
+                        <p>Name: {username}</p>
+                        <p>Date of Birth: {userDob}</p>
+                        <p>City: {userCity}</p>
+                        <p>Email: {userEmail}</p>
+
+                    </div>
+                    
+                </div>
+
 
             </div>
 
 
 
             <div className="create_post">
-                <p>Create a new Post...</p>
-                <button onClick={() => handlePostBtn() } className="normal_btn">Post</button>
+                {/* <p>Create a new Post...</p> */}
+                <button onClick={() => handlePostBtn() } className="normal_btn">Create a new Post...</button>
             </div>
 
 

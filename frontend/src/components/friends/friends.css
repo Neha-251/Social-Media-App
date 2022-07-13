@@ -1,0 +1,64 @@
+
+.friend_Main_Container{
+    display: flex;
+    flex-direction: row;
+}
+
+.friends_mainDiv1{
+    width: 30%;
+    padding: 30px;
+    border: 1px solid;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+
+.friends_mainDiv2{
+    width: 40%;
+    padding: 30px;
+    border: 1px solid;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+}
+
+.friends_div{
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.friends_div > div{
+    display: flex;
+    gap: 20px;
+}
+
+
+.friends_div > div > div > p:nth-child(1){
+    font-size: 18px;
+
+}
+
+.friends_div > div > div > p:nth-child(2){
+    font-size: 13px;
+    
+}
+
+.connect_btn{
+    padding: 2px 10px;
+    font-size: 15px;
+    border: 2px solid;
+    cursor: pointer;
+    margin: auto 0;
+}
+
+.connect_btn:hover{
+    color: white;
+    background-color: deeppink;
+}

@@ -57,7 +57,6 @@ export const Signup = () => {
             setLoading(false);
 
         } else {
-            console.log(data);
             axios.post("https://social-media-neha2.herokuapp.com/users/signup", data)
                 .then(res => {
                     setLoading(false)
@@ -103,7 +102,6 @@ export const Signup = () => {
 
 
 
-    //console.log(data);
 
     return (
         <>

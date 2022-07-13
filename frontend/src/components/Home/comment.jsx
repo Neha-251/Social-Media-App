@@ -15,14 +15,12 @@ export const Comment = (el, setRefresh) => {
 
 
     const handleClickComment = (id) => {
-        // console.log("reactionId" ,id, string);
         let obj = {
             "user_id": userId,
             "reaction": commentInp
         }
 
         axios.patch(`https://social-media-neha2.herokuapp.com/comment/edit/${id}`, obj).then(res => {
-            console.log(res.data)
             
             const Toast = Swal.mixin({
                 toast: true,

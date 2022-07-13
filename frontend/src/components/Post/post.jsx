@@ -8,9 +8,9 @@ import Swal from 'sweetalert2/src/sweetalert2.js'
 import spinner from "../image/spinner3.gif";
 
 
-export const Post = () => {
+export const Modal = () => {
 
-    const { userId, profile_img } = useContext(userContext);
+    const { userId, profile_img, postFlag, setPostFlag } = useContext(userContext);
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
@@ -43,7 +43,6 @@ export const Post = () => {
         }
 
     }
-    console.log('postImg', postImg)
 
     const handlePostPicChange = (e) => {
         let file = e.target.files[0];
@@ -127,13 +126,10 @@ export const Post = () => {
 
             axios.post("https://social-media-neha2.herokuapp.com/reaction/create", reactionData)
                 .then(res => {
-                    console.log(res.data)
                     setReactionId(res.data._id);
-                    // console.log('res.data._id', res.data._id)
 
 
                 }).catch(error => {
-                    console.log(error)
                     setLoading(false);
                     const Toast = Swal.mixin({
                         toast: true,
@@ -155,14 +151,11 @@ export const Post = () => {
 
             axios.post("https://social-media-neha2.herokuapp.com/comment/create", commentData)
                 .then(res => {
-                    console.log(res.data)
-                    console.log('res.data._id', res.data._id)
                     setCommentId(res.data._id);
                     setParentId(parent_id)
 
 
                 }).catch(error => {
-                    console.log(error)
                     setLoading(false);
                     const Toast = Swal.mixin({
                         toast: true,
@@ -187,8 +180,7 @@ export const Post = () => {
     }
 
     const createPost = () => {
-        // console.log('commentId', commentId)
-        // console.log('reactionId', reactionId)
+        
         if (reactionId && commentId) {
 
             let formData = new FormData();
@@ -197,7 +189,6 @@ export const Post = () => {
             for (let i = 0; i < postImg.length; i++) {
                 formData.append("post_file", postImg[i]);
             }
-            console.log('postImg', postImg)
             formData.append("title", title);
             formData.append("description", description);
             formData.append("parent_id", parentId);
@@ -206,12 +197,10 @@ export const Post = () => {
             formData.append("comment_id", commentId);
             formData.append("reaction_id", reactionId);
             formData.append("profile_img", profile_img);
-            console.log('formData', formData)
 
 
             axios.post("https://social-media-neha2.herokuapp.com/post/create", formData)
                 .then(res => {
-                    //alert(res.data.message)
                     setLoading(false);
 
                     const Toast = Swal.mixin({
@@ -231,7 +220,6 @@ export const Post = () => {
                         title: "Your post is successful"
                     })
                 }).catch(error => {
-                    console.log(error)
                     setLoading(false);
                     const Toast = Swal.mixin({
                         toast: true,
@@ -266,7 +254,7 @@ export const Post = () => {
                 <img src={spinner} alt="spinner" />
             </div>
             <div className="post_popup_div">
-                <div className="wrong_symbol" onClick={() => { navigate("/profile") }}>✖</div>
+                <div className="wrong_symbol" onClick={() => setPostFlag(false)}>✖</div>
                 <div className="post_mainDiv">
 
                     <div onClick={handleClearImgDiv} className="imgCorss">✖</div>

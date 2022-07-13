@@ -6,7 +6,6 @@ import { Userimage } from "./user-image";
 
 
 export const CommentMap = (parentId) => {
-   // console.log('parentId', parentId)
 
     const { profile_img, userId, dataRefresh, refresh } = useContext(userContext);
 
@@ -18,7 +17,7 @@ export const CommentMap = (parentId) => {
 
 
         })
-            .catch(err => console.log(err))
+            .catch()
     }
 
     useEffect(() => {
