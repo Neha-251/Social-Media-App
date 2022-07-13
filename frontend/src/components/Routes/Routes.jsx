@@ -17,8 +17,8 @@ export const AllRoutes = () => {
 
           <Navbar/>
           <Routes>
-            <Route exact path="/signup" element={<Signup/>} />
-            <Route exact path="/" element={<Login/>}/>
+            <Route exact path="/" element={<Signup/>} />
+            <Route exact path="/login" element={<Login/>}/>
             <Route path="/profile" element={<Profile/>} />
             {/* <Route path="/post" element={<Post/>}></Route> */}
             <Route exact path="/home" element={<Home/>}></Route>
