@@ -63,6 +63,7 @@
 
 .post_middleDiv{
     padding: 5px;
+    text-align: center;
 }
 
 .post_title{
@@ -77,20 +78,21 @@
 
 .post_main_imgDiv{
     height: 450px;
-    width: 750px;
+    max-width: 850px;
+    min-width: 550px;
     gap: 20px;
     padding: 20px;
     overflow-x: scroll;
     overflow-y: hidden;
-
+    margin: auto;
     display: flex;
 
 }
 .post_main_img{
-    height: 400px;
     margin: 20px auto;
-    
-    max-width: 750px;
+    height: 450px;
+    max-width: 850px;
+    min-width: 550px;
 }
 
 .post_lowerDiv1{
@@ -237,6 +239,7 @@
 .comment_userImg{
     height: 50px;
     width: 50px;
+    margin: auto;
     border-radius: 50%;
 }
 
@@ -247,11 +250,13 @@
 
 .comment_author{
     font-size: 14px;
-    background-color: rgb(197, 197, 197);
+    padding: 5px;
+    margin: 0 5px;
+    background-color: rgb(202, 215, 243);
 }
 
 .comment_text{
-    background-color: rgb(222, 221, 221);
+    background-color: rgb(233, 233, 233);
     padding: 10px 20px;
 }
 
@@ -272,5 +277,90 @@
 
 
 .post_user{
-    text-align: left;
+    /* text-align: left; */
+}
+
+@media only screen and (min-width: 275px) and (max-width: 475px) {
+
+.home_mainDiv{
+    width: 97%;
+    padding: 5px;
+    margin: 0;
+}
+
+.post_title{
+    font-size: 18px;
+}
+
+.post_desc{
+    font-size: 14px;
+}
+
+.single_post{
+    padding: 2px;
+}
+.post_upperDiv{
+    height: 80px;
+}
+.post_upper_left{
+    width: 70%;
+}
+.post_main_imgDiv{
+    padding: 0;
+    margin: 10px auto;
+    height: 250px;
+    max-width: 350px;
+    min-width: 250px;
+}
+.post_main_img{
+    margin: 0px auto;
+    height: 250px;
+    max-width: 350px;
+    min-width: 250px;
+
+}
+
+
+.reaction_icons_div{
+    margin-left: 10px;
+}
+.post_lowerDiv2{
+    padding: 2px;
+}
+
+.post_comment1{
+    padding: 2px;
+}
+
+.post_comment_inp{
+    padding: 5px;
+    width: 80%;
+    font-size: 15px;
+    height: 30px;
+}
+.post_userImg_comment{
+    margin: 4px;
+}
+
+.commentMaindiv{
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+.comment_text{
+    font-size: 12px;
+    
+}
+
+.comment_username{
+    font-size: 14px;
+}
+.comment_author{
+    font-size: 13px;
+}
+.comment_comment{
+    font-size: 16px;
+
+}
+
 }

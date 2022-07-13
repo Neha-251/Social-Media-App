@@ -25,7 +25,7 @@ export const Conversation = ({ conversation, currentUserName, currentUserImg, cu
   return (
     <div className="conversation">
       <Userimage userId={friendId}/>
-      <UserDetails user={friendId} />
+      {/* <UserDetails user={friendId} /> */}
       {/* <span className="conversationName">{user?.username}</span> */}
     </div>
   );

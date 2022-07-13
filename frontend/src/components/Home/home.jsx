@@ -147,9 +147,9 @@ export const Home = () => {
                                         <img className="post_userImg" src={el.profile_img} alt="user_profile_image" />
                                         <UserDetails user={el.user_id} />
                                     </div>
-                                    <div className="post_upper_right">
+                                    {/* <div className="post_upper_right">
                                         <p>+ Follow</p>
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 <div className="post_middleDiv">

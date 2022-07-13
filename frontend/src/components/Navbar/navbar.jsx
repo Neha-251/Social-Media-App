@@ -45,15 +45,18 @@ export const Navbar = () => {
 
     }
 
+    
     const handlelogOut = () => {
 
-        if (window.confirm("Are Ypu Sure you want to logout?") === true) {
-            userLogin(null);
+        if (window.confirm("Are You Sure you want to logout?") === true) {
+            alert(true)
+           // userLogin(null);
             userImg("");
             navigate("/");
         }
 
     }
+  
 
 
     const getData = () => {
@@ -72,6 +75,7 @@ export const Navbar = () => {
 
 
     return (
+        <>
         <nav>
 
             {userId ?
@@ -104,5 +108,7 @@ export const Navbar = () => {
                 : null
             }
         </nav>
+        <div className="nav"></div>
+        </>
     )
 }

@@ -6,6 +6,7 @@ import { userContext } from "../context/usercontext";
 import { Navbar } from "../Navbar/navbar";
 import "./profile.css";
 import "@sweetalert2/themes/material-ui/material-ui.css";
+import { AiOutlineLogout } from "react-icons/ai";
 import Swal from 'sweetalert2/src/sweetalert2.js'
 import { Modal } from "../Post/post";
 
@@ -13,7 +14,7 @@ import { Modal } from "../Post/post";
 export const Profile = () => {
 
     const navigate = useNavigate();
-    const { username, userImg, userId, profile_img, userDob, userCity, userEmail, userPassword, postFlag, setPostFlag } = useContext(userContext);
+    const { username, userImg, userId, profile_img, userDob, userCity, userEmail, userPassword, userLogin, postFlag, setPostFlag } = useContext(userContext);
 
     const [profilePicPreview, setProfilePicPreview] = useState("");
     const [profilePic, setProfilePic] = useState("");
@@ -160,6 +161,16 @@ export const Profile = () => {
     }
     } 
 
+    const handlelogOut = () => {
+
+        if (window.confirm("Are You Sure you want to logout?") === true) {
+            alert(true)
+           // userLogin(null);
+            userImg("");
+            navigate("/");
+        }
+
+    }
   
 
 
@@ -193,6 +204,11 @@ export const Profile = () => {
                         <p>Email: {userEmail}</p>
 
                     </div>
+
+                    {/* <div onClick={handlelogOut} className="logout_btn_div" >
+                        <AiOutlineLogout className="user_icon text_btn" />
+                        <p className="text_btn logout_btn">Logout</p>
+                    </div> */}
                     
                 </div>
 

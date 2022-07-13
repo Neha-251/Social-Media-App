@@ -25,6 +25,9 @@
 
   .chat_btn{
     font-size: 12px;
+    width: 100%;
+    margin: 5px auto;
+    padding: 3px 10px;
   }
   .chatOnlineImg {
     width: 40px;
@@ -47,5 +50,24 @@
   @media screen and (max-width: 768px) {
     .chatOnlineName {
       display: none;
+    }
+
+    .chatOnline_div{
+      display: flex;
+      flex-direction: column;
+      padding: 0.2px;
+    }
+
+    .chatOnlineImgContainer {
+      position: relative;
+      margin-right: 1px;
+    }
+
+    
+    .chatOnline_div > div:nth-child(1){
+      display: flex;
+      text-align: center;
+      flex-direction: column;
+      gap: 3px;
     }
   }

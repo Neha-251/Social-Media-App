@@ -17,13 +17,13 @@ export const AllRoutes = () => {
 
           <Navbar/>
           <Routes>
-            <Route path="/signup" element={<Signup/>} />
-            <Route path="/" element={<Login/>}/>
+            <Route exact path="/signup" element={<Signup/>} />
+            <Route exact path="/" element={<Login/>}/>
             <Route path="/profile" element={<Profile/>} />
             {/* <Route path="/post" element={<Post/>}></Route> */}
-            <Route path="/home" element={<Home/>}></Route>
-            <Route path="/friends" element={<Friends/>} />
-            <Route path="/chat" element={<MainChat/>} />
+            <Route exact path="/home" element={<Home/>}></Route>
+            <Route exact path="/friends" element={<Friends/>} />
+            <Route exact path="/chat" element={<MainChat/>} />
           </Routes>
         </>
     )

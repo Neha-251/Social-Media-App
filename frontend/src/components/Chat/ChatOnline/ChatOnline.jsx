@@ -58,7 +58,7 @@ export const ChatOnline = ({ onlineUsers, currentId, setCurrentChat }) => {
                 <Userimage userId={el} />
                 <UserDetails user={el} />
               </div>
-              <button className="normal_btn chat_btn">Start Conversation</button>
+              <button className="normal_btn chat_btn">Chat</button>
             </div>
           )
         })

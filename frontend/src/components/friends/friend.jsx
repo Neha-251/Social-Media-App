@@ -15,6 +15,7 @@ export const Friends = () => {
     const [friendList, setFriendList] = useState([])
     const [friendId, setFriendId] = useState("")
     const [ready, setReady] = useState(false)
+    const [refresh, setRefresh] = useState(false);
     const { userId, username, profile_img } = useContext(userContext);
 
 
@@ -28,7 +29,7 @@ export const Friends = () => {
 
     useEffect(() => {
         getData()
-    }, [])
+    }, [refresh])
 
     const handleConnect = (id) => {
         axios.get(`https://social-media-neha2.herokuapp.com/friends/${userId}`)
@@ -100,6 +101,8 @@ export const Friends = () => {
                             icon: 'success',
                             title: 'Congrats! a new friend'
                         })
+                        setRefresh(true)
+
                     }).catch(err => alert(err))
             } else {
                 let data = {
@@ -123,6 +126,7 @@ export const Friends = () => {
                             icon: 'success',
                             title: 'Congrats! a new friend'
                         })
+                        setRefresh(true)
                     }).catch(err => alert(err))
 
             }
@@ -132,6 +136,8 @@ export const Friends = () => {
             addFriend()
             setReady(false)
         }
+        setRefresh(false)
+
     }, [friendId])
 
 

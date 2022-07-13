@@ -7,7 +7,7 @@
 .friends_mainDiv1{
     width: 30%;
     padding: 30px;
-    border: 1px solid;
+    border: 1px solid grey;
     margin: 30px auto;
     display: flex;
     flex-direction: column;
@@ -18,7 +18,7 @@
 .friends_mainDiv2{
     width: 40%;
     padding: 30px;
-    border: 1px solid;
+    border: 1px solid grey;
     margin: 30px auto;
     display: flex;
     flex-direction: column;
@@ -61,4 +61,32 @@
 .connect_btn:hover{
     color: white;
     background-color: deeppink;
+}
+
+
+@media only screen and (min-width: 275px) and (max-width: 475px) {
+
+
+    .friends_mainDiv1{
+        padding: 1px;
+        /* margin: 10px auto; */
+        gap: 2px;
+    }
+
+    
+.friends_div{
+    padding: 1px;
+    display: flex;
+    gap: 5px;
+    margin: 5px auto;
+    padding: 5px;
+    flex-direction: column;
+}
+
+
+.friends_div > div{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
 }

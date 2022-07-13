@@ -4,7 +4,7 @@
   }
   
   .chatMenu {
-    flex: 3.5;
+    flex: 3;
   }
   
   .chatMenuInput {
@@ -99,4 +99,23 @@
     .chatOnline{
       flex: 1px;
     }
+
+    
+ 
+  .chatOnlineWrapper {
+    padding: 0.2px;
+    height: 100%;
+    width: 100px;
+    text-align: center;
+  }
+
+  .noConversationText {
+    position: absolute;
+    top: 10%;
+    right: 8%;
+    left: 2%;
+    font-size: 40px;
+    color: rgb(224, 220, 220);
+    cursor: default;
+  }
   }
