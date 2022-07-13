@@ -76,7 +76,7 @@ export const Signup = () => {
                         icon: 'success',
                         title: 'SignUp Successful'
                     })
-                    navigate("/")
+                    navigate("/login")
                 }).catch(err=> {
                     setLoading(false)
 
@@ -127,7 +127,7 @@ export const Signup = () => {
 
                     <div className="altDiv">
                         Already have an account?
-                        <Link to="/" >
+                        <Link to="/login" >
                             <span className="text_btn"> Sign In</span>
                         </Link>
                     </div>

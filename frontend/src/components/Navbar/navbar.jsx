@@ -52,7 +52,7 @@ export const Navbar = () => {
             alert(true)
            // userLogin(null);
             userImg("");
-            navigate("/");
+            navigate("/login");
         }
 
     }

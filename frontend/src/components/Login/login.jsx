@@ -268,7 +268,7 @@ export const Login = () => {
 
                     <input type="submit" value="Log In" className="signup_btn normal_btn" />
 
-                    <div className="altDiv">New User?<Link to="/signup"> <span className="text_btn">Create a new account</span></Link></div>
+                    <div className="altDiv">New User?<Link to="/"> <span className="text_btn">Create a new account</span></Link></div>
                 </form>
 
 
