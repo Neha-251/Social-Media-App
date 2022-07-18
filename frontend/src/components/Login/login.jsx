@@ -246,7 +246,7 @@ export const Login = () => {
             <div className="signup_form">
 
                 <h1 className="heading_register">Log In</h1>
-
+{/* 
                 <GoogleLogin
                     clientId="684237123379-9inof3f9a3sqa680bt3kikpngok2buil.apps.googleusercontent.com"
                     buttonText="Login with Google"
@@ -256,7 +256,7 @@ export const Login = () => {
                     cookiePolicy={'single_host_origin'}
                 />
 
-                <div className="or">OR</div>
+                <div className="or">OR</div> */}
 
                 <form action="" onSubmit={handleSubmit} >
 
