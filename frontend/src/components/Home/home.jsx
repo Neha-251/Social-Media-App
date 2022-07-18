@@ -35,12 +35,7 @@ export const Home = () => {
 
     }
 
-    // useEffect(() => {
-    //    // if (data.length === 0) {
-    //         getData();
-    //    // }
-
-    // }, [])
+ 
 
     useEffect(() => {
         // if (data.length === 0) {
@@ -139,7 +134,6 @@ export const Home = () => {
 
                 {
                     data.map((el) => {
-                        // el.user_id.name
                         return (
                             <div className="single_post" key={el._id}>
                                 <div className="post_upperDiv">
@@ -147,9 +141,7 @@ export const Home = () => {
                                         <img className="post_userImg" src={el.profile_img} alt="user_profile_image" />
                                         <UserDetails user={el.user_id} />
                                     </div>
-                                    {/* <div className="post_upper_right">
-                                        <p>+ Follow</p>
-                                    </div> */}
+                                
                                 </div>
 
                                 <div className="post_middleDiv">

@@ -1,6 +1,6 @@
 nav {
     background: linear-gradient(#045443, #044765);
-    padding: 5% 1%;
+    padding: 2% 1%;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -17,7 +17,7 @@ nav {
 
 .nav {
     background: transparent;
-    padding: 8% 1%;
+    padding: 2% 1%;
     top: 0;
     left: 0;
     text-align: end;
