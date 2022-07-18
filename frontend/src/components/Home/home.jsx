@@ -138,7 +138,7 @@ export const Home = () => {
                             <div className="single_post" key={el._id}>
                                 <div className="post_upperDiv">
                                     <div className="post_upper_left">
-                                        <img className="post_userImg" src={el.profile_img} alt="user_profile_image" />
+                                        <img className="post_userImg" src={el.profile_img} alt="user_image" />
                                         <UserDetails user={el.user_id} />
                                     </div>
                                 

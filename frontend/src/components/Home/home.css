@@ -46,6 +46,7 @@
     border: 1px solid deeppink;
     border-radius: 50%;
     margin-left: 20px;
+    font-size: 12px;
 }
 
 .post_username{
@@ -239,7 +240,8 @@
 .comment_userImg{
     height: 50px;
     width: 50px;
-    margin: auto;
+    font-size: 12px;
+    margin: 0;
     border-radius: 50%;
 }
 
@@ -311,11 +313,13 @@
     height: 250px;
     max-width: 350px;
     min-width: 250px;
+    font-size: 12px;
 }
 .post_main_img{
     margin: 0px auto;
     height: 250px;
     max-width: 350px;
+    font-size: 12px;
     min-width: 250px;
 
 }
@@ -339,6 +343,7 @@
     height: 30px;
 }
 .post_userImg_comment{
+    font-size: 12px;
     margin: 4px;
 }
 
