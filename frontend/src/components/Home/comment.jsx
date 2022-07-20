@@ -66,7 +66,7 @@ export const Comment = (el, setRefresh) => {
     return (
         <div className="post_lowerDiv2">
             <div className="post_comment1">
-                <img className="post_userImg_comment" src={profile_img} alt="" />
+                <img className="comment_userImg" src={profile_img} alt="" />
 
                 <input type="text" placeholder="Add a Comment..." value={commentInp} onChange={(e) => { setCommentInp(e.target.value) }} className="post_comment_inp" />
                 <FiSend className="comment_inp_send_icon" onClick={() => handleClickComment(el.el.comment_id._id)} />
