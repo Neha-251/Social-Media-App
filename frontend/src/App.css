@@ -91,6 +91,16 @@ div, span, a, p, img{
     margin: 200px 100px;
   
   }
+
+  ::-webkit-scrollbar{
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb{
+    background-color: #044765;
+    border-radius: 10px;
+    width: 10px;
+  }
 }
 
 @media only screen and (min-width:476px) and (max-width: 775px) {
@@ -100,6 +110,15 @@ div, span, a, p, img{
     margin: 200px 300px;
   
   }
+  ::-webkit-scrollbar{
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb{
+    background-color: #044765;
+    border-radius: 10px;
+    width: 15px;
+  }
 }
 
 @media only screen and (min-width:776px) and (max-width: 1275px) {
@@ -108,5 +127,15 @@ div, span, a, p, img{
     background: transparent;
     margin: 200px 500px;
   
+  }
+
+  ::-webkit-scrollbar{
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb{
+    background-color: #044765;
+    border-radius: 10px;
+    width: 20px;
   }
 }
