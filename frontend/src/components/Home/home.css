@@ -241,7 +241,7 @@
     height: 50px;
     width: 50px;
     font-size: 12px;
-    margin: 0 auto;
+    margin: 0;
     border-radius: 50%;
 }
 
@@ -368,4 +368,11 @@
 
 }
 
+
+.pageDiv{
+    width: 80%;
+    justify-content: space-around;
+   
+    margin: 5px auto;
+}
 }
