@@ -76,7 +76,7 @@ export const Signup = () => {
                         icon: 'success',
                         title: 'SignUp Successful'
                     })
-                    navigate("/login")
+                    navigate("/register")
                 }).catch(err=> {
                     setLoading(false)
 

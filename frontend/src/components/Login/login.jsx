@@ -62,8 +62,6 @@ export const Login = () => {
             navigate("/profile")
 
 
-        } else {
-
         }
     }, [uDetails, userId])
 
