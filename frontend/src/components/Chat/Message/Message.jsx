@@ -33,7 +33,7 @@ export const Message = ({ message, userId, senderId }) => {
         {
           message.receiver===userId? 
            friendImg===""? <AiOutlineUser className="user_icon" /> :
-            <img src={friendImg} className="comment_userImg" alt="img" /> : <img src={profile_img} className="comment_userImg" alt="img" />
+            <img src={friendImg} className="message_userImg" alt="img" /> : <img src={profile_img} className="message_userImg" alt="img" />
         }
         <p className="messageText">{message.text}</p>
       </div>

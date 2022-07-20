@@ -20,7 +20,7 @@ export const Userimage = (userId) => {
         <>
           {
             pic!==""?
-           <img className="comment_userImg" src={pic} alt="user-image" /> : <AiOutlineUser className="user_icon" />
+           <img className="comment_userImg margin_auto" src={pic} alt="user-image" /> : <AiOutlineUser className="user_icon margin_auto" />
 
         }
         </>

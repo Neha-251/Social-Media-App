@@ -206,7 +206,12 @@
     font-size: 25px;
     cursor: pointer;
   }
-
+  .chatBoxTop {
+    height: 55%;
+    padding: 10px 10px;
+    overflow-y: scroll;
+    
+  }
 
 
   }

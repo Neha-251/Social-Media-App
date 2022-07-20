@@ -19,7 +19,7 @@ export const Userimage = (userId) => {
         <>
         {
             pic!==""?
-           <img className="message_userImg" src={pic} alt="user-image" /> : <AiOutlineUser className="user_icon" />
+           <img className="message_userImg" src={pic} alt="user-image" /> : <AiOutlineUser className="user_icon margin_auto" />
 
         }
         </>
