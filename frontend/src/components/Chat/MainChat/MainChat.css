@@ -133,7 +133,7 @@
       width: 70%;
       background-color: white;
       padding: 2px;
-      height: 700px;
+      height: 600px;
       font-size: 13px;
     }
   
@@ -156,8 +156,7 @@
     color: rgb(224, 220, 220);
     cursor: default;
   }
-  .chatMenuWrapper,
-  .chatOnlineWrapper {
+  .chatMenuWrapper {
     padding: 20px 0px;
     height: 0.8vh;
     position: fixed;
@@ -167,8 +166,19 @@
     /* overflow: scroll; */
   }
 
+  .chatOnlineWrapper {
+    padding: 20px 0px;
+    height: 70%;
+    position: fixed;
+    top: 13%;
+    left: 55%;
+    overflow-y: scroll;
+      background-color: white;
+      width: 45%;
+  }
   .chatOnlineWrapper div {
     background-color: white;
+    overflow-y: scroll;
   }
 
   .chatSubmitButton {
