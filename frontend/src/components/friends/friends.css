@@ -1,28 +1,31 @@
 
 .friend_Main_Container{
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
+    height: auto;
 }
 
 .friends_mainDiv1{
     width: 30%;
     padding: 30px;
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     margin: 30px auto;
     display: flex;
     flex-direction: column;
     gap: 20px;
     text-align: center;
+    height: auto;
 }
 
 .friends_mainDiv2{
     width: 40%;
     padding: 30px;
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     margin: 30px auto;
     display: flex;
     flex-direction: column;
     text-align: center;
+    height: auto;
     gap: 20px;
 }
 

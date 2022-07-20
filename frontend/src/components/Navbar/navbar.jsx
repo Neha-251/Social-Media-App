@@ -27,7 +27,14 @@ export const Navbar = () => {
     const sort = new URLSearchParams(search).get('sort') || -1;
 
     useEffect(()=> {
-        setUserId(localStorage.getItem("userId_socialMedia"))
+        let data = {
+            userId : localStorage.getItem("userId_socialMedia"),
+            username : localStorage.getItem("username_socialMedia"),
+            city : localStorage.getItem("usercity_socialMedia"),
+            dob : localStorage.getItem("userdob_socialMedia"),
+            email : localStorage.getItem("useremail_socialMedia")
+        }
+        userLogin(data)
     }, [])
 
     const getProfilePic = () => {

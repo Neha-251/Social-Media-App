@@ -132,6 +132,11 @@ export const Login = () => {
         setLoading(false)
 
         localStorage.setItem("userId_socialMedia", userData._id)
+        localStorage.setItem("username_socialMedia", userData.name)
+        localStorage.setItem("userdob_socialMedia", userData.dob)
+        localStorage.setItem("usercity_socialMedia", userData.city)
+        localStorage.setItem("useremail_socialMedia", userData.email)
+
 
         if (userId!==undefined && userId!=='undefined' && userId!=="") {
             const Toast = Swal.mixin({
