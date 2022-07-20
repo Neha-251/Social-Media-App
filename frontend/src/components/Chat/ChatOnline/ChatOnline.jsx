@@ -10,7 +10,7 @@ export const ChatOnline = ({ onlineUsers, currentId, setCurrentChat }) => {
   const [friends, setFriends] = useState([]);
   const [onlineFriends, setOnlineFriends] = useState([]);
 
-  const {setFriendListRefresh} = useContext(userContext);
+  const { setFriendListRefresh } = useContext(userContext);
 
   useEffect(() => {
     const getFriends = async () => {
@@ -34,36 +34,39 @@ export const ChatOnline = ({ onlineUsers, currentId, setCurrentChat }) => {
         timer: 3000,
         timerProgressBar: true,
         didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
-    })
+      })
 
-    Toast.fire({
+      Toast.fire({
         icon: 'success',
         title: 'Congrats! a new Conversation'
-    })
-    setFriendListRefresh(true);
-    
-    }).catch(err=> console.log(err))
+      })
+      setFriendListRefresh(true);
+
+    }).catch(err => console.log(err))
   }
 
   return (
-    <div>
-      {
-        friends.map((el) => {
-          return (
-            <div key={el} className="chatOnline_div" onClick={()=> handleAddConversation(el)}>
-              <div>
-                <Userimage userId={el} />
-                <UserDetails user={el} />
+    <>
+
+      <div>
+        {
+          friends.map((el) => {
+            return (
+              <div key={el} className="chatOnline_div" onClick={() => handleAddConversation(el)}>
+                <div>
+                  <Userimage userId={el} />
+                  <UserDetails user={el} />
+                </div>
+                <button className="normal_btn chat_btn">Chat</button>
               </div>
-              <button className="normal_btn chat_btn">Chat</button>
-            </div>
-          )
-        })
-      }
-    </div>
+            )
+          })
+        }
+      </div>
+    </>
   )
 
 }

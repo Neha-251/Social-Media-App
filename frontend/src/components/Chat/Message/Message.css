@@ -22,7 +22,7 @@
       background-color: #1877f2;
       color: white;
       max-width: 300px;
-  }
+    }
   
   .messageBottom{
       font-size: 12px;
@@ -32,8 +32,17 @@
   .message.own{
       align-items: flex-end;
   }
+  .message_userImg{
+    margin: 0;
+  }
   
   .message.own .messageText{
       background-color: rgb(245, 241, 241);
       color: black;
+  }
+
+  @media screen and (max-width: 768px) {
+    .messageText{
+        font-size: 13px;
+    }
   }

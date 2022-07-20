@@ -5,7 +5,6 @@ import {AiOutlineUser}  from "react-icons/ai";
 
 
 
-
 export const Userimage = (userId) => {
 
     const [pic, setPic] = useState("");
@@ -18,12 +17,11 @@ export const Userimage = (userId) => {
 
     return (
         <>
-          {
+        {
             pic!==""?
-           <img className="comment_userImg" src={pic} alt="user-image" /> : <AiOutlineUser className="user_icon" />
+           <img className="message_userImg" src={pic} alt="user-image" /> : <AiOutlineUser className="user_icon" />
 
         }
         </>
-        
     )
 }

@@ -17,6 +17,8 @@ export const Navbar = () => {
 
     const navigate = useNavigate();
     const { userImg, profile_img, userId, isLoggedin, username, datatotalPage, allData, setUserId, userLogin } = useContext(userContext);
+    console.log('profile_img', profile_img)
+    // console.log('userImg', userImg)
 
     const [loading, setLoading] = useState(false);
 
@@ -82,7 +84,7 @@ export const Navbar = () => {
     useEffect(() => {
         getProfilePic();
         getData();
-    }, [])
+    }, [userId])
 
 
     return (

@@ -6,9 +6,13 @@ import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { userContext } from "../../context/usercontext";
 import { useNavigate } from "react-router-dom";
+import {AiOutlineUser}  from "react-icons/ai";
+import { CgMenuRound } from "react-icons/cg"
 
 
 export const MainChat = () => {
+
+  const [showOnline, setShowOnline] = useState(false);
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [currentFriend, setCurrentFriend] = useState(null);
@@ -53,7 +57,11 @@ export const MainChat = () => {
       )
 
     axios.get(`https://social-media-neha2.herokuapp.com/profilepic/get/single?userId=${currentFriend}`)
-      .then(res => setFriendImg(res.data)).catch()
+      .then(res => {
+       
+        setFriendImg(res.data)
+      })
+      .catch()
 
   }, [currentFriend])
 
@@ -155,7 +163,10 @@ export const MainChat = () => {
               {currentChat ? (
                 <>
                   <div className="chatBoxhead">
-                    <img src={friendImg} className="comment_userImg" alt="" />
+                    {
+                      friendImg===""? <AiOutlineUser className="user_icon" /> :
+                      <img src={friendImg} className="message_userImg" alt="" />
+                    }
                     <div className="post_user">
                       <p className="post_username">{friendName}</p>
                       <p className="post_usercity">{friendCity}</p>
@@ -191,7 +202,14 @@ export const MainChat = () => {
             </div>
           </div>
           <div className="chatOnline">
-            <div className="chatOnlineWrapper">
+          <span><CgMenuRound onClick={()=> 
+             {
+              showOnline? setShowOnline(false): setShowOnline(true)
+             }
+            } className="menu_icon" /></span>
+            <div className={ showOnline? "chatOnlineWrapper": "display_none"}>
+            
+             
               <ChatOnline
                 onlineUsers={onlineUsers}
                 currentId={userId}

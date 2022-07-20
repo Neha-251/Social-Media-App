@@ -30,6 +30,10 @@ div, span, a, p, img{
   display: none;
 }
 
+.display_block{
+  display: block;
+}
+
 .loading_screen{
   opacity: 0.8;
   position: fixed;

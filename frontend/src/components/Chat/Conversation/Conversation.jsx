@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { UserDetails } from "../../friends/UserDetails";
+import { UserDetails } from "./UserDetails";
 import { Userimage } from "../../Home/user-image";
 import "./Conversation.css";
 

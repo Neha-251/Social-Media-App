@@ -1,8 +1,10 @@
 .conversation {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 5px;
     cursor: pointer;
+    width: 80%;
+    justify-content: space-between;
     margin-top: 20px;
   }
   
@@ -15,7 +17,7 @@
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 20px;
+    /* margin-right: 20px; */
   }
   
   .conversationName {
