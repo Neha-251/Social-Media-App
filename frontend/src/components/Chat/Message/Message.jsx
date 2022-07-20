@@ -10,6 +10,7 @@ import { userContext } from "../../context/usercontext";
 
 export const Message = ({ message, userId, senderId }) => {
   const [own, setOwn] = useState(false)
+  console.log('own', own)
 
  
 
