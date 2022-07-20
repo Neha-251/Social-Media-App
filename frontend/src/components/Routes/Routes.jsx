@@ -7,24 +7,27 @@ import { Post } from "../Post/post"
 import { Profile } from "../Profile/profile"
 import { Signup } from "../Signup/signup"
 import { MainChat } from "../Chat/MainChat/MainChat"
+import { useEffect, useState } from "react"
+
 
 
 
 
 export const AllRoutes = () => {
-    return (
-        <>
 
-          <Navbar/>
-          <Routes>
-            <Route exact path="/" element={<Signup/>} />
-            <Route exact path="/login" element={<Login/>}/>
-            <Route path="/profile" element={<Profile/>} />
-            {/* <Route path="/post" element={<Post/>}></Route> */}
-            <Route exact path="/home" element={<Home/>}></Route>
-            <Route exact path="/friends" element={<Friends/>} />
-            <Route exact path="/chat" element={<MainChat/>} />
-          </Routes>
-        </>
-    )
+
+  return (
+    <>
+
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Signup />} > </Route>
+        <Route path="/register" element={<Login />}> </Route>
+        <Route exact path="/profile" element={<Profile />} />
+        <Route exact path="/home" element={<Home />}></Route>
+        <Route exact path="/friends" element={<Friends />} />
+        <Route exact path="/chat" element={<MainChat />} />
+      </Routes>
+    </>
+  )
 }

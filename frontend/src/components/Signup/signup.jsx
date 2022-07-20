@@ -127,7 +127,7 @@ export const Signup = () => {
 
                     <div className="altDiv">
                         Already have an account?
-                        <Link to="/login" >
+                        <Link to="/register" >
                             <span className="text_btn"> Sign In</span>
                         </Link>
                     </div>

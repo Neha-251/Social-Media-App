@@ -4,8 +4,8 @@ import { Message } from "../Message/Message";
 import { ChatOnline } from "../ChatOnline/ChatOnline";
 import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { io } from "socket.io-client";
 import { userContext } from "../../context/usercontext";
+import { useNavigate } from "react-router-dom";
 
 
 export const MainChat = () => {
@@ -16,29 +16,15 @@ export const MainChat = () => {
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
-  const socket = useRef();
   const { userId, username, profile_img } = useContext(userContext);
   const scrollRef = useRef();
   const [refresh, setRefresh] = useState(false);
   const [time, setTime] = useState(0)
-  console.log('time', time)
   const { setFriendName, friendName, friendImg, friendCity, setFriendImg, setFriendCity, friendListRefresh, setFriendListRefresh } = useContext(userContext)
 
   var timer = useRef(0)
 
-
-
-  // useEffect(() => {
-  //   socket.current = io("ws://social-media-neha2.herokuapp.com");
-
-  //   socket.current.on("getMessage", (data) => {
-  //     setArrivalMessage({
-  //       sender: data.senderId,
-  //       text: data.text,
-  //       createdAt: Date.now(),
-  //     });
-  //   });
-  // }, []);
+  const navigate = useNavigate()
 
   useEffect(() => {
     arrivalMessage &&
@@ -46,14 +32,6 @@ export const MainChat = () => {
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
-  // useEffect(() => {
-  //   socket.current.emit("addUser", userId);
-  //   socket.current.on("getUsers", (users) => {
-  //     setOnlineUsers(
-  //       username.followings.filter((f) => users.some((u) => u.userId === f))
-  //     );
-  //   });
-  // }, [userId]);
 
   useEffect(() => {
     if (currentChat) {
@@ -96,9 +74,8 @@ export const MainChat = () => {
     try {
       const res = await axios.get(`https://social-media-neha2.herokuapp.com/message/${currentChat._id}`);
       setMessages(res.data);
-      console.log("yes, it is refreshing")
     } catch (err) {
-      console.log('err', err)
+      // console.log('err', err)
     }
     
   };
@@ -120,7 +97,6 @@ export const MainChat = () => {
       clearInterval(timer.current)
     }
   })
-  console.log('refresh', refresh)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -158,10 +134,11 @@ export const MainChat = () => {
     }, [messages]);
 
 
-
-
     return (
+      
       <>
+      {
+        userId!=="undefined"? 
         <div className="messenger">
           <div className="chatMenu">
             <div className="chatMenuWrapper">
@@ -223,6 +200,14 @@ export const MainChat = () => {
             </div>
           </div>
         </div>
+        :
+        <div style={{width: "300px", margin: '50px auto'}}>
+          <div>You are not logged in Please login</div>
+          
+          <button className="normal_btn" onClick={()=> navigate("/register")}>Login</button>
+        </div> 
+      }
+        
       </>
     );
   }

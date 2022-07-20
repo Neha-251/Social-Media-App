@@ -35,7 +35,7 @@ export const Home = () => {
 
     }
 
- 
+
 
     useEffect(() => {
         // if (data.length === 0) {
@@ -110,91 +110,105 @@ export const Home = () => {
     return (
         <>
 
-            <div className="home_mainDiv">
+            {
+                userId !== "undefined" ?
+                    <div>
 
-                <p className="refresh_btn" onClick={() => { dataRefresh(true); 
-                   
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
-        
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Please wait, data is being updated!'
-                    })
-                    }}>Refresh....</p>
+                        <div className="home_mainDiv">
 
-                {
-                    data.map((el) => {
-                        return (
-                            <div className="single_post" key={el._id}>
-                                <div className="post_upperDiv">
-                                    <div className="post_upper_left">
-                                        <img className="post_userImg" src={el.profile_img} alt="user_image" />
-                                        <UserDetails user={el.user_id} />
-                                    </div>
-                                
-                                </div>
+                            <p className="refresh_btn" onClick={() => {
+                                dataRefresh(true);
 
-                                <div className="post_middleDiv">
-                                    <p className="post_title">{el.title}</p>
-                                    <p className="post_desc">{el.description}</p>
-                                    <div className="post_main_imgDiv">
-                                        {el.post_file.map((img) => {
-                                            return <img className="post_main_img" src={img} alt="post_image" />
-                                        })}
-                                    </div>
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                    didOpen: (toast) => {
+                                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                    }
+                                })
 
-                                </div>
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Please wait, data is being updated!'
+                                })
+                            }}>Refresh....</p>
 
-                                <div className="likeCount_div">
-                                    <p className="total_like_p">Total Likes {el.reaction_id.reactions.length}</p>
-                                    <p className="total_comment_p">Total Comments {el.comment_id.comments.length}</p>
-                                </div>
+                            {
+                                data.map((el) => {
+                                    return (
+                                        <div className="single_post" key={el._id}>
+                                            <div className="post_upperDiv">
+                                                <div className="post_upper_left">
+                                                    <img className="post_userImg" src={el.profile_img} alt="user_image" />
+                                                    <UserDetails user={el.user_id} />
+                                                </div>
 
+                                            </div>
 
+                                            <div className="post_middleDiv">
+                                                <p className="post_title">{el.title}</p>
+                                                <p className="post_desc">{el.description}</p>
+                                                <div className="post_main_imgDiv">
+                                                    {el.post_file.map((img) => {
+                                                        return <img className="post_main_img" src={img} alt="post_image" />
+                                                    })}
+                                                </div>
 
+                                            </div>
 
-
-                                <div className="post_lowerDiv1">
-                                    <div className="reaction_icons_div">
+                                            <div className="likeCount_div">
+                                                <p className="total_like_p">Total Likes {el.reaction_id.reactions.length}</p>
+                                                <p className="total_comment_p">Total Comments {el.comment_id.comments.length}</p>
+                                            </div>
 
 
-                                        <FcLike onClick={() => handleLike(el.reaction_id._id, "love")} className="reaction_icons" />
-                                        <RiEmotionLaughLine onClick={() => handleLike(el.reaction_id._id, "laugh")} className="reaction_icons" />
-                                        <AiFillLike onClick={() => handleLike(el.reaction_id._id, "like")} className="reaction_icons" />
-                                        <FaHandHoldingHeart onClick={() => handleLike(el.reaction_id._id, "heart")} className="reaction_icons" />
-                                        <FcIdea onClick={() => handleLike(el.reaction_id._id, "idea")} className="reaction_icons" />
 
-                                    </div>
-                                    <div>Share</div>
-                                </div>
 
-                                <Comment el={el} />
 
-                            </div>
-                        )
-                    })
-                }
+                                            <div className="post_lowerDiv1">
+                                                <div className="reaction_icons_div">
 
-            </div>
-            <div className="pageDiv">
-                {
-                    pages.map((e) => {
-                        return (
-                            <button key={e} onClick={() => handlePage(e)}>{e}</button>
-                        )
-                    })
-                }
-            </div>
+
+                                                    <FcLike onClick={() => handleLike(el.reaction_id._id, "love")} className="reaction_icons" />
+                                                    <RiEmotionLaughLine onClick={() => handleLike(el.reaction_id._id, "laugh")} className="reaction_icons" />
+                                                    <AiFillLike onClick={() => handleLike(el.reaction_id._id, "like")} className="reaction_icons" />
+                                                    <FaHandHoldingHeart onClick={() => handleLike(el.reaction_id._id, "heart")} className="reaction_icons" />
+                                                    <FcIdea onClick={() => handleLike(el.reaction_id._id, "idea")} className="reaction_icons" />
+
+                                                </div>
+                                                <div>Share</div>
+                                            </div>
+
+                                            <Comment el={el} />
+
+                                        </div>
+                                    )
+                                })
+                            }
+
+                        </div>
+                        <div className="pageDiv">
+                            {
+                                pages.map((e) => {
+                                    return (
+                                        <button key={e} onClick={() => handlePage(e)}>{e}</button>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
+
+                    : <div style={{ width: "300px", margin: '50px auto' }}>
+                        <div>You are not logged in Please login</div>
+
+                        <button className="normal_btn" onClick={() => navigate("/register")}>Login</button>
+                    </div>
+            }
+
         </>
     )
 }

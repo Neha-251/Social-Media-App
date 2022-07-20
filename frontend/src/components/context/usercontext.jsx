@@ -66,7 +66,7 @@ export const  UserContextProvider = ({children}) => {
       userDob, userCity, userEmail, userPassword,
       dataRefresh, refresh, postFlag, setPostFlag,
       setFriendCity, friendCity, setFriendImg, friendImg, setFriendName, friendName,
-      friendListRefresh, setFriendListRefresh
+      friendListRefresh, setFriendListRefresh, setUserId
 
     }} > {children}</userContext.Provider>
 }

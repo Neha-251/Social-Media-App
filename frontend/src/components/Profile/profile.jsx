@@ -26,19 +26,18 @@ export const Profile = () => {
             .then(res => {
                 userImg(res.data)
             })
-            .catch(error =>   
-               {
+            .catch(error => {
 
-            //     Swal.fire({
-            //     position: 'top-end',
-            //     icon: 'warning',
-            //     title: 'Something Went Wrong!',
-            //     showConfirmButton: false,
-            //     timer: 2000,
-            //     timerProgressBar: true,
-            //     heightAuto: false
-            // })
-        })
+                //     Swal.fire({
+                //     position: 'top-end',
+                //     icon: 'warning',
+                //     title: 'Something Went Wrong!',
+                //     showConfirmButton: false,
+                //     timer: 2000,
+                //     timerProgressBar: true,
+                //     heightAuto: false
+                // })
+            })
     }
 
     useEffect(() => {
@@ -47,7 +46,7 @@ export const Profile = () => {
 
     const handleProfilePicChange = (e) => {
 
-        if(userId) {
+        if (userId) {
             let file = e.target.files[0];
             setProfilePic(file);
             changeFile(file)
@@ -60,17 +59,17 @@ export const Profile = () => {
                 timer: 4000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
-                  toast.addEventListener('mouseenter', Swal.stopTimer)
-                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
-              })
-              
-              Toast.fire({
+            })
+
+            Toast.fire({
                 icon: 'warning',
                 title: 'Please Login to Set Profile Picture!'
             })
         }
-        
+
     }
 
     const changeFile = (file) => {
@@ -94,7 +93,7 @@ export const Profile = () => {
             axios.post("https://social-media-neha2.herokuapp.com/profilepic/create", formData)
                 .then(res => {
 
-                }).then(res => 
+                }).then(res =>
                     Swal.fire({
                         position: 'top-end',
                         icon: 'warning',
@@ -104,14 +103,14 @@ export const Profile = () => {
                         timerProgressBar: true,
                         heightAuto: false
                     })
-                    ).catch()
+                ).catch()
         } else {
             axios.delete(`https://social-media-neha2.herokuapp.com/profilepic/delete?userId=${userId}`)
                 .then(
                     axios.post("https://social-media-neha2.herokuapp.com/profilepic/create", formData)
                         .then(res => {
                             userImg(profilePic)
-                        }).then(res => 
+                        }).then(res =>
                             Swal.fire({
                                 position: 'top-end',
                                 icon: 'warning',
@@ -121,9 +120,9 @@ export const Profile = () => {
                                 timerProgressBar: true,
                                 heightAuto: false
                             })
-                            
-                            ).catch()
-                ).catch(err => 
+
+                        ).catch()
+                ).catch(err =>
                     Swal.fire({
                         position: 'top-end',
                         icon: 'warning',
@@ -139,91 +138,98 @@ export const Profile = () => {
     }
 
     const handlePostBtn = () => {
-        if(userId){
-            setPostFlag(true) 
+        if (userId) {
+            setPostFlag(true)
         } else {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 4000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          
-          Toast.fire({
-            icon: 'warning',
-            title: 'Please Login to post!'
-        })
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'warning',
+                title: 'Please Login to post!'
+            })
+        }
     }
-    } 
 
     const handlelogOut = () => {
 
         if (window.confirm("Are You Sure you want to logout?") === true) {
             alert(true)
-           // userLogin(null);
+            // userLogin(null);
             userImg("");
             navigate("/");
         }
 
     }
-  
+
 
 
     return (
         <>
-            {/* <Navbar /> */}
+            {userId !== "undefined" ?
 
-            <div>
-                {postFlag===true && <Modal/>}
-            </div>
+                <div>
 
-            <div className="profile_container">
+                    <div>
+                        {postFlag === true && <Modal />}
+                    </div>
 
-                <div className="profile_mainDiv">
-                    <div className="profile_pic_div">
-                        <img src={profilePicPreview === "" ? profile_img : profilePicPreview} className="profile_img" alt="profile_pic" />
+                    <div className="profile_container">
+
+                        <div className="profile_mainDiv">
+                            <div className="profile_pic_div">
+                                <img src={profilePicPreview === "" ? profile_img : profilePicPreview} className="profile_img" alt="profile_pic" />
+                            </div>
+
+
+                            <form action="" className="profile_form" onSubmit={handleSubmit}>
+                                <input type="file" onChange={handleProfilePicChange} className="pic_inp" /> <br />
+                                <input type="submit" value="Upload" className="normal_btn pic_btn" />
+                            </form>
+                        </div>
+
+                        <div className="userDetails">
+                            <div className="showUserDetails">
+                                <p>Name: {username}</p>
+                                <p>Date of Birth: {userDob}</p>
+                                <p>City: {userCity}</p>
+                                <p>Email: {userEmail}</p>
+
+                            </div>
+
+                       
+                        </div>
+
+
                     </div>
 
 
-                    <form action="" className="profile_form" onSubmit={handleSubmit}>
-                        <input type="file" onChange={handleProfilePicChange} className="pic_inp" /> <br />
-                        <input type="submit" value="Upload" className="normal_btn pic_btn" />
-                    </form>
-                </div>
 
-                <div className="userDetails">
-                    <div className="showUserDetails">
-                        <p>Name: {username}</p>
-                        <p>Date of Birth: {userDob}</p>
-                        <p>City: {userCity}</p>
-                        <p>Email: {userEmail}</p>
-
+                    <div className="create_post">
+                        {/* <p>Create a new Post...</p> */}
+                        <button onClick={() => handlePostBtn()} className="normal_btn">Create a new Post...</button>
                     </div>
 
-                    {/* <div onClick={handlelogOut} className="logout_btn_div" >
-                        <AiOutlineLogout className="user_icon text_btn" />
-                        <p className="text_btn logout_btn">Logout</p>
-                    </div> */}
-                    
                 </div>
+                :
+                <div style={{ width: "300px", margin: '50px auto' }}>
+                    <div>You are not logged in Please login</div>
 
-
-            </div>
-
-
-
-            <div className="create_post">
-                {/* <p>Create a new Post...</p> */}
-                <button onClick={() => handlePostBtn() } className="normal_btn">Create a new Post...</button>
-            </div>
-
-
+                    <button className="normal_btn" onClick={() => navigate("/register")}>Login</button>
+                </div>
+            }
 
         </>
+
+
     )
 }

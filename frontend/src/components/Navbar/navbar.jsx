@@ -9,14 +9,14 @@ import { useState } from "react";
 import { useContext } from "react";
 import { userContext } from "../context/usercontext";
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import "@sweetalert2/themes/material-ui/material-ui.css";
 import Swal from 'sweetalert2/src/sweetalert2.js'
 
 export const Navbar = () => {
 
     const navigate = useNavigate();
-    const { userImg, profile_img, userId, isLoggedin, username, datatotalPage, allData, userLogin } = useContext(userContext);
+    const { userImg, profile_img, userId, isLoggedin, username, datatotalPage, allData, setUserId, userLogin } = useContext(userContext);
 
     const [loading, setLoading] = useState(false);
 
@@ -25,6 +25,10 @@ export const Navbar = () => {
     const page = new URLSearchParams(search).get('page') || 1;
     const pagesize = new URLSearchParams(search).get('pagesize') || 6;
     const sort = new URLSearchParams(search).get('sort') || -1;
+
+    useEffect(()=> {
+        setUserId(localStorage.getItem("userId_socialMedia"))
+    }, [])
 
     const getProfilePic = () => {
         if (userId) {
@@ -52,7 +56,7 @@ export const Navbar = () => {
             alert(true)
            // userLogin(null);
             userImg("");
-            navigate("/login");
+            navigate("/");
         }
 
     }

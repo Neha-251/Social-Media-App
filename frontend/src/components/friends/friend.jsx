@@ -6,6 +6,7 @@ import { userContext } from "../context/usercontext";
 import "@sweetalert2/themes/material-ui/material-ui.css";
 import Swal from 'sweetalert2/src/sweetalert2.js'
 import { UserDetails } from "./UserDetails";
+import { useNavigate } from "react-router-dom";
 
 export const Friends = () => {
 
@@ -17,6 +18,8 @@ export const Friends = () => {
     const [ready, setReady] = useState(false)
     const [refresh, setRefresh] = useState(false);
     const { userId, username, profile_img } = useContext(userContext);
+
+    const navigate = useNavigate()
 
 
     const getData = () => {
@@ -52,7 +55,6 @@ export const Friends = () => {
                     }
                 }
             }).catch(err => {
-                console.log('err', err)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -143,7 +145,10 @@ export const Friends = () => {
 
 
     return (
-        <div className="friend_Main_Container">
+        <>
+        {
+            userId!=="undefined"? 
+            <div className="friend_Main_Container">
             <div className="friends_mainDiv1">
                 <h3>Your Friends</h3>
                 {
@@ -180,5 +185,14 @@ export const Friends = () => {
                 }
             </div>
         </div>
+        : 
+        <div style={{ width: "300px", margin: '50px auto' }}>
+        <div>You are not logged in Please login</div>
+
+        <button className="normal_btn" onClick={() => navigate("/register")}>Login</button>
+    </div>
+        }
+        
+        </>
     )
 }
