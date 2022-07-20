@@ -63,7 +63,23 @@ export const Navbar = () => {
 
         if (window.confirm("Are You Sure you want to logout?") === true) {
             alert(true)
-           // userLogin(null);
+            let data = {
+                userId: undefined,
+                username: undefined,
+                dob: undefined,
+                city: undefined,
+                email: undefined
+            }
+            
+           userLogin(data);
+
+            
+        localStorage.setItem("userId_socialMedia", undefined)
+        localStorage.setItem("username_socialMedia", undefined)
+        localStorage.setItem("userdob_socialMedia", undefined)
+        localStorage.setItem("usercity_socialMedia", undefined)
+        localStorage.setItem("useremail_socialMedia", undefined)
+
             userImg("");
             navigate("/");
         }
