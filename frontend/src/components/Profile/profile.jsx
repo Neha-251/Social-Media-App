@@ -175,9 +175,9 @@ export const Profile = () => {
 
     return (
         <>
-            {userId !== "undefined" ?
+            {userId !== "undefined" && userId !== undefined && userId !== "" && userId !== null ?
 
-                <div>
+               ( <div>
 
                     <div>
                         {postFlag === true && <Modal />}
@@ -219,13 +219,13 @@ export const Profile = () => {
                         <button onClick={() => handlePostBtn()} className="normal_btn">Create a new Post...</button>
                     </div>
 
-                </div>
+                </div>)
                 :
-                <div style={{ width: "300px", margin: '50px auto' }}>
+                (<div style={{ width: "300px", margin: '50px auto' }}>
                     <div>You are not logged in Please login</div>
 
                     <button className="normal_btn" onClick={() => navigate("/register")}>Login</button>
-                </div>
+                </div>)
             }
 
         </>
