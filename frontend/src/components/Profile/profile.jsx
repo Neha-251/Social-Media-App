@@ -95,7 +95,7 @@ export const Profile = () => {
                 .then(
                     axios.post("https://social-media-neha2.herokuapp.com/profilepic/create", formData)
                         .then(res => {
-                            userImg(profilePic)
+                            dispatch(setUserImg(profilePic))
                         }).then(res =>
                             Swal.fire({
                                 position: 'top-end',

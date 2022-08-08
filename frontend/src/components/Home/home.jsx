@@ -25,7 +25,6 @@ export const Home = () => {
 
     const dispatch = useDispatch();
     const userData = useSelector(state => state.userData.userData);
-    console.log('userData', userData)
     const postRefresh = useSelector(state => state.userData.postRefresh);
 
     const [pages, setPages] = useState([])
@@ -42,12 +41,8 @@ export const Home = () => {
 
     }
 
-
-
     useEffect(() => {
-        // if (data.length === 0) {
         getData();
-        // }
 
     }, [postRefresh, page, pagesize, sort])
 
@@ -146,11 +141,12 @@ export const Home = () => {
 
                             {
                                 allData.map((el) => {
+                                    console.log('el', el.profile_img)
                                     return (
                                         <div className="single_post" key={el._id}>
                                             <div className="post_upperDiv">
                                                 <div className="post_upper_left">
-                                                    <img className="post_userImg" src={el.profile_img} alt="user_image" />
+                                                    <img className="post_userImg" src={el.profile_img} alt="el_img" />
                                                     <UserDetails user={el.user_id} />
                                                 </div>
 

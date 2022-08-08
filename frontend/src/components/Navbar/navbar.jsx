@@ -100,7 +100,7 @@ export const Navbar = () => {
                         </div>
                         <div onClick={handlelogOut} className="logout_btn_div" >
                             <AiOutlineLogout className="user_icon text_btn" />
-                            <p className="text_btn logout_btn">Logout</p>
+                            {/* <p className="text_btn logout_btn">Logout</p> */}
                         </div>
                     </>
                     {/* : null

@@ -1,7 +1,7 @@
 
 
 .home_mainDiv{
-    width: 80%;
+    width: 60%;
     border: 1px solid silver;
     margin: 10px auto;
     padding: 30px;
@@ -68,19 +68,19 @@
 }
 
 .post_title{
-    font-size: 25px;
+    font-size: 20px;
     margin: 0px auto;
 }
 
 .post_desc{
-    font-size: 18px;
+    font-size: 17px;
     margin: 10px auto;
 }
 
 .post_main_imgDiv{
     height: 450px;
-    max-width: 850px;
-    min-width: 550px;
+    max-width: 700px;
+    min-width: 450px;
     gap: 20px;
     padding: 20px;
     overflow-x: scroll;
@@ -91,9 +91,8 @@
 }
 .post_main_img{
     margin: 20px auto;
-    height: 450px;
-    max-width: 850px;
-    min-width: 550px;
+    height: 350px;
+    max-width: 600px;
 }
 
 .post_lowerDiv1{
@@ -220,13 +219,14 @@
     text-align: left;
     display: flex;
     margin-left: 50px;
-    margin-top: 20px;
+    margin-top: 10px;
     gap: 20px;
 }
 
-/* .comment_comment{
-    margin: 10px 120px;
-} */
+.comment_comment{
+    /* margin: 10px 120px; */
+    font-size:14px;
+}
 
 .comment_user_div{
     display: flex;
@@ -246,11 +246,11 @@
 
 .comment_username{
     margin-top: 0px;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .comment_author{
-    font-size: 14px;
+    font-size: 12px;
     padding: 5px;
     margin: 0 5px;
     background-color: rgb(202, 215, 243);
@@ -258,11 +258,12 @@
 
 .comment_text{
     background-color: rgb(233, 233, 233);
-    padding: 10px 20px;
+    padding: 5px 5px;
+    border-radius: 5px;
 }
 
 .pageDiv{
-    width: 13%;
+    width: 30%;
     justify-content: space-around;
    
     margin: 20px auto;
@@ -270,7 +271,7 @@
 
 .pageDiv button{
     padding: 2px 8px;
-    margin: 0 5px;
+    margin: 0 0px;
     background: transparent;
     border: 1px solid deeppink;
     cursor: pointer;
@@ -281,7 +282,7 @@
     /* text-align: left; */
 }
 
-@media only screen and (min-width: 275px) and (max-width: 475px) {
+@media only screen and (min-width: 275px) and (max-width: 1075px) {
 
 .home_mainDiv{
     width: 97%;
@@ -317,9 +318,8 @@
 .post_main_img{
     margin: 0px auto;
     height: 250px;
-    max-width: 350px;
+    max-width: 300px;
     font-size: 12px;
-    min-width: 250px;
 
 }
 
@@ -363,7 +363,7 @@
     font-size: 13px;
 }
 .comment_comment{
-    font-size: 16px;
+    font-size: 12px;
 
 }
 
