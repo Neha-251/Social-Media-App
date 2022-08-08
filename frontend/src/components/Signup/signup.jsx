@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./signup.css";
 import axios from "axios";
 import spinner from "../image/spinner3.gif";
@@ -6,10 +6,15 @@ import { Link, useNavigate } from "react-router-dom";
 import "@sweetalert2/themes/material-ui/material-ui.css";
 import Swal from 'sweetalert2/src/sweetalert2.js'
 // @import '~@sweetalert2/themes/dark/dark.scss';
+import {useDispatch, useSelector} from 'react-redux';
+import { getUserImg } from "../../redux/action/userAction";
 
 export const Signup = () => {
 
     const navigate = useNavigate();
+
+    const userData = useSelector(state => state.userData.userData)
+    const userImg = useSelector(state => state.userData.usrImg)
 
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState({
@@ -20,6 +25,21 @@ export const Signup = () => {
         dob: ""
     });
 
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        if(userData.userId && !userImg) {
+            console.log('signup profile')
+            dispatch(getUserImg(userData.userId))
+            navigate('/profile')
+        } else {
+            navigate('/profile')
+
+        }
+    }, [userData])
+   
+
+    
 
 
     const handleChange = (e) => {
@@ -35,7 +55,6 @@ export const Signup = () => {
         e.preventDefault();
 
         if (data.name === "" || data.email === "" || data.password === "" || data.city === "" || data.dob === "") {
-            // alert("Please fill all the details")
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -76,7 +95,7 @@ export const Signup = () => {
                         icon: 'success',
                         title: 'SignUp Successful'
                     })
-                    navigate("/register")
+                    navigate("/login")
                 }).catch(err=> {
                     setLoading(false)
 
@@ -127,7 +146,7 @@ export const Signup = () => {
 
                     <div className="altDiv">
                         Already have an account?
-                        <Link to="/register" >
+                        <Link to="/login" >
                             <span className="text_btn"> Sign In</span>
                         </Link>
                     </div>

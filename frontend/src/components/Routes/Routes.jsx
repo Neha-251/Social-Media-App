@@ -22,7 +22,7 @@ export const AllRoutes = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Signup />} > </Route>
-        <Route path="/register" element={<Login />}> </Route>
+        <Route path="/login" element={<Login />}> </Route>
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/home" element={<Home />}></Route>
         <Route exact path="/friends" element={<Friends />} />

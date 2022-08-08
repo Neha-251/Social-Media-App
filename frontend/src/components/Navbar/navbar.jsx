@@ -6,138 +6,107 @@ import { AiOutlineLogout } from "react-icons/ai";
 import "./navbar.css";
 import axios from "axios";
 import { useState } from "react";
-import { useContext } from "react";
-import { userContext } from "../context/usercontext";
 import { useEffect } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import "@sweetalert2/themes/material-ui/material-ui.css";
 import Swal from 'sweetalert2/src/sweetalert2.js'
+import { getUserImg, setUserData, getUserData } from "../../redux/action/userAction";
 
 export const Navbar = () => {
 
     const navigate = useNavigate();
-    const { userImg, profile_img, userId, isLoggedin, username, datatotalPage, allData, setUserId, userLogin } = useContext(userContext);
-    console.log('profile_img', profile_img)
-    // console.log('userImg', userImg)
 
-    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch()
+    
+    const userData = useSelector(state=> state.userData.userData)
+    const userImg = useSelector(state=> state.userData.userImg)
 
-
-    const search = useLocation().search;
-    const page = new URLSearchParams(search).get('page') || 1;
-    const pagesize = new URLSearchParams(search).get('pagesize') || 6;
-    const sort = new URLSearchParams(search).get('sort') || -1;
-
-    useEffect(()=> {
-        let data = {
-            userId : localStorage.getItem("userId_socialMedia"),
-            username : localStorage.getItem("username_socialMedia"),
-            city : localStorage.getItem("usercity_socialMedia"),
-            dob : localStorage.getItem("userdob_socialMedia"),
-            email : localStorage.getItem("useremail_socialMedia")
-        }
-        userLogin(data)
-    }, [])
-
-    const getProfilePic = () => {
-        if (userId) {
-            axios.get(`https://social-media-neha2.herokuapp.com/profilepic/get/single?userId=${userId}`)
-                .then(res => {
-
-                    let singleData = res.data;
-
-                    userImg(singleData);
-
-
-                })
-                .catch(err => {
-                    setLoading(false)
-                })
-        }
-
-
-    }
+    console.log('userData', userData)
 
     
+    useEffect(()=> {
+        dispatch(getUserData())
+
+    }, [])
+
+
+    useEffect(()=> {
+        if(userData.userId && !userImg) {
+            console.log('almost here')
+            dispatch(getUserImg(userData.userId))
+            console.log('userData.userId', userData.userId)
+        }
+    }, [userData])
+
+    useEffect(()=> {
+        console.log('userImg', userImg)
+
+    }, [userImg])
+
+   
+
+
     const handlelogOut = () => {
 
         if (window.confirm("Are You Sure you want to logout?") === true) {
             alert(true)
-            let data = {
-                userId: undefined,
-                username: undefined,
-                dob: undefined,
-                city: undefined,
-                email: undefined
-            }
-            
-           userLogin(data);
+            let data = {}
 
-            
-        localStorage.setItem("userId_socialMedia", undefined)
-        localStorage.setItem("username_socialMedia", undefined)
-        localStorage.setItem("userdob_socialMedia", undefined)
-        localStorage.setItem("usercity_socialMedia", undefined)
-        localStorage.setItem("useremail_socialMedia", undefined)
+            dispatch(setUserData(data))
+
+
+            localStorage.setItem("userId_socialMedia", undefined)
+            localStorage.setItem("username_socialMedia", undefined)
+            localStorage.setItem("userdob_socialMedia", undefined)
+            localStorage.setItem("usercity_socialMedia", undefined)
+            localStorage.setItem("useremail_socialMedia", undefined)
 
             userImg("");
             navigate("/");
         }
 
     }
-  
 
 
-    const getData = () => {
-        axios.get(`https://social-media-neha2.herokuapp.com/post/get/all?page=${page}&pagesize=${pagesize}&sort=${sort}`).then(res => {
-            datatotalPage(res.data.total_pages);
-            allData(res.data.post);
-        })
-            .catch()
 
-    }
-
-    useEffect(() => {
-        getProfilePic();
-        getData();
-    }, [userId])
 
 
     return (
         <>
-        <nav>
+            <nav>
 
-            {userId ?
-                <>
-                    <div className="userIcons">
+                {/* {userId ? */}
+                    <>
+                        <div className="userIcons">
 
-                        <div>
+                            <div>
 
-                            <FaUserAlt className={profile_img === "" ? "user_icon" : "display_none"} onClick={() => { navigate("/profile") }} />
-                            <img src={profile_img} onClick={() => { navigate("/profile") }}
-                                className={profile_img === "" ? "display_none" : "profile_img_nav"}
-                                alt="profile_img"
-                            />
-                            {/* <p>{username}</p> */}
+                                <FaUserAlt className={userImg === "" ? "user_icon" : "display_none"} onClick={() => { navigate("/profile") }} />
+                                <img src={userImg} onClick={() => { navigate("/profile") }}
+                                    className={userImg === "" ? "display_none" : "profile_img_nav"}
+                                    alt="profile_img"
+                                /> 
+                                {/* <p>{userData.username}</p> */}
+
+                            </div>
+
+                            <ImHome3 className="user_icon" onClick={() => { navigate("/home") }} />
+
+                            <FaUserFriends className="friends_icon user_icon" onClick={() => { navigate("/friends") }} />
+
+                            <TbMessage className="friends_icon user_icon" onClick={() => { navigate("/chat") }} />
 
                         </div>
-
-                        <ImHome3 className="user_icon" onClick={() => { navigate("/home") }} />
-
-                        <FaUserFriends className="friends_icon user_icon" onClick={() => { navigate("/friends") }} />
-
-                        <TbMessage className="friends_icon user_icon" onClick={() => { navigate("/chat") }} />
-
-                    </div>
-                    <div onClick={handlelogOut} className="logout_btn_div" >
-                        <AiOutlineLogout className="user_icon text_btn" />
-                        <p className="text_btn logout_btn">Logout</p>
-                    </div>
-                </>
-                : null
-            }
-        </nav>
-        <div className="nav"></div>
+                        <div onClick={handlelogOut} className="logout_btn_div" >
+                            <AiOutlineLogout className="user_icon text_btn" />
+                            <p className="text_btn logout_btn">Logout</p>
+                        </div>
+                    </>
+                    {/* : null
+                } */}
+            </nav>
+            <div className="nav"></div>
         </>
     )
 }

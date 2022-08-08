@@ -1,52 +1,38 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userContext } from "../context/usercontext";
 import { Navbar } from "../Navbar/navbar";
 import "./profile.css";
 import "@sweetalert2/themes/material-ui/material-ui.css";
 import { AiOutlineLogout } from "react-icons/ai";
 import Swal from 'sweetalert2/src/sweetalert2.js'
 import { Modal } from "../Post/post";
+import { useDispatch, useSelector } from "react-redux/es/exports";
+import { getUserImg, setPostFlag, setUserImg } from "../../redux/action/userAction";
 
 
 export const Profile = () => {
 
     const navigate = useNavigate();
-    const { username, userImg, userId, profile_img, userDob, userCity, userEmail, userPassword, userLogin, postFlag, setPostFlag } = useContext(userContext);
 
     const [profilePicPreview, setProfilePicPreview] = useState("");
     const [profilePic, setProfilePic] = useState("");
 
+    const dispatch = useDispatch();
+    const userData = useSelector(state => state.userData.userData)
+    const userImg = useSelector(state => state.userData.userImg)
+    const postFlag = useSelector(state => state.userData.postFlag)
 
 
-    const getProfilePic = () => {
-        axios.get(`https://social-media-neha2.herokuapp.com/profilepic/get/single?userId=${userId}`)
-            .then(res => {
-                userImg(res.data)
-            })
-            .catch(error => {
+    useEffect(()=> {
+        userData.userId && !userImg && dispatch(getUserImg(userData.userId))
 
-                //     Swal.fire({
-                //     position: 'top-end',
-                //     icon: 'warning',
-                //     title: 'Something Went Wrong!',
-                //     showConfirmButton: false,
-                //     timer: 2000,
-                //     timerProgressBar: true,
-                //     heightAuto: false
-                // })
-            })
-    }
-
-    useEffect(() => {
-        getProfilePic();
-    }, [])
+    }, [userData])
 
     const handleProfilePicChange = (e) => {
 
-        if (userId) {
+        if (userData.userId) {
             let file = e.target.files[0];
             setProfilePic(file);
             changeFile(file)
@@ -85,7 +71,7 @@ export const Profile = () => {
         e.preventDefault();
         let formData = new FormData();
         formData.append("profile_pic", profilePic);
-        formData.append("user_id", userId);
+        formData.append("user_id", userData.userId);
         //let userId = "62b5dbf70d1f6f18934eabf7";
 
 
@@ -105,7 +91,7 @@ export const Profile = () => {
                     })
                 ).catch()
         } else {
-            axios.delete(`https://social-media-neha2.herokuapp.com/profilepic/delete?userId=${userId}`)
+            axios.delete(`https://social-media-neha2.herokuapp.com/profilepic/delete?userId=${userData.userId}`)
                 .then(
                     axios.post("https://social-media-neha2.herokuapp.com/profilepic/create", formData)
                         .then(res => {
@@ -138,8 +124,8 @@ export const Profile = () => {
     }
 
     const handlePostBtn = () => {
-        if (userId) {
-            setPostFlag(true)
+        if (userData._id) {
+             dispatch(setPostFlag(true))
         } else {
             const Toast = Swal.mixin({
                 toast: true,
@@ -171,13 +157,19 @@ export const Profile = () => {
 
     }
 
+    const [user_id, setUser_id] = useState('')
+    useEffect(() => {
+        setUser_id(localStorage.getItem('userId_socialMedia'))
+        console.log('localStorage.getItem(\'userId_socialMedia\')', localStorage.getItem('userId_socialMedia'))
+    }, [])
 
 
     return (
         <>
-            {userId !== "undefined" && userId !== undefined && userId !== "" && userId !== null ?
+            {user_id ?
 
-               ( <div>
+
+                (<div>
 
                     <div>
                         {postFlag === true && <Modal />}
@@ -187,7 +179,7 @@ export const Profile = () => {
 
                         <div className="profile_mainDiv">
                             <div className="profile_pic_div">
-                                <img src={profilePicPreview === "" ? profile_img : profilePicPreview} className="profile_img" alt="profile_pic" />
+                                <img src={profilePicPreview === "" ? userImg : profilePicPreview} className="profile_img" alt="profile_pic" />
                             </div>
 
 
@@ -199,14 +191,14 @@ export const Profile = () => {
 
                         <div className="userDetails">
                             <div className="showUserDetails">
-                                <p>Name: {username}</p>
-                                <p>Date of Birth: {userDob}</p>
-                                <p>City: {userCity}</p>
-                                <p>Email: {userEmail}</p>
+                                <p>Name: {userData.username}</p>
+                                <p>Date of Birth: {userData.dob}</p>
+                                <p>City: {userData.city}</p>
+                                <p>Email: {userData.email}</p>
 
                             </div>
 
-                       
+
                         </div>
 
 

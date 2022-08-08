@@ -8,7 +8,7 @@ export const UserDetails = (user) => {
    useEffect(()=> {
     setUserD(user.user);
 
-   }, [])
+   }, [user])
     
 
 

@@ -1,8 +1,7 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Navbar } from "../Navbar/navbar"
 import "./home.css";
-import { userContext } from "../context/usercontext";
 import { FcLike, FcIdea } from "react-icons/fc";
 import { RiEmotionLaughLine } from "react-icons/ri";
 import { AiFillLike } from "react-icons/ai";
@@ -12,6 +11,8 @@ import "@sweetalert2/themes/material-ui/material-ui.css";
 import Swal from 'sweetalert2/src/sweetalert2.js'
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserDetails } from "./userDetails";
+import {useDispatch, useSelector} from 'react-redux'
+import { setPostRefresh } from "../../redux/action/userAction";
 
 export const Home = () => {
 
@@ -21,17 +22,23 @@ export const Home = () => {
     const pagesize = new URLSearchParams(search).get('pagesize') || 6;
     const sort = new URLSearchParams(search).get('sort') || -1;
 
-    const { data, allData, userId, totalPage, datatotalPage, dataRefresh, refresh } = useContext(userContext);
+
+    const dispatch = useDispatch();
+    const userData = useSelector(state => state.userData.userData);
+    console.log('userData', userData)
+    const postRefresh = useSelector(state => state.userData.postRefresh);
 
     const [pages, setPages] = useState([])
+    const [totalPage, setTotalPage] = useState(0)
+    const [allData, setAllData] = useState([])
 
     const getData = () => {
         axios.get(`https://social-media-neha2.herokuapp.com/post/get/all?page=${page}&pagesize=${pagesize}&sort=${sort}`).then(res => {
-            allData(res.data.post);
-            datatotalPage(res.data.total_pages);
+            setAllData(res.data.post);
+            setTotalPage(res.data.total_pages);
         })
             .catch()
-        dataRefresh(false);
+        dispatch(setPostRefresh(false));
 
     }
 
@@ -42,7 +49,7 @@ export const Home = () => {
         getData();
         // }
 
-    }, [refresh, page, pagesize, sort])
+    }, [postRefresh, page, pagesize, sort])
 
     const handlePage = (e) => {
         navigate(`/home?page=${e}&pagesize=${pagesize}&sort=${sort}`)
@@ -58,11 +65,11 @@ export const Home = () => {
             arr.push(i);
         }
         setPages(arr);
-    }, [data])
+    }, [allData])
 
     const handleLike = (id, string) => {
         let obj = {
-            "user_id": userId,
+            "user_id": userData.userId,
             "reaction": string
         }
 
@@ -84,7 +91,7 @@ export const Home = () => {
                 icon: 'success',
                 title: 'You Liked a Post!'
             })
-            dataRefresh(true)
+            dispatch(setPostRefresh(true))
         }).catch((err) => {
             const Toast = Swal.mixin({
                 toast: true,
@@ -111,13 +118,13 @@ export const Home = () => {
         <>
 
             {
-                userId !== "undefined" ?
+                userData.userId?
                     <div>
 
                         <div className="home_mainDiv">
 
                             <p className="refresh_btn" onClick={() => {
-                                dataRefresh(true);
+                                dispatch(setPostRefresh(true));
 
                                 const Toast = Swal.mixin({
                                     toast: true,
@@ -138,7 +145,7 @@ export const Home = () => {
                             }}>Refresh....</p>
 
                             {
-                                data.map((el) => {
+                                allData.map((el) => {
                                     return (
                                         <div className="single_post" key={el._id}>
                                             <div className="post_upperDiv">

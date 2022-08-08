@@ -1,17 +1,21 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userContext } from "../context/usercontext";
 import "./post.css";
 import "@sweetalert2/themes/material-ui/material-ui.css";
 import Swal from 'sweetalert2/src/sweetalert2.js'
 import spinner from "../image/spinner3.gif";
+import { useDispatch, useSelector } from "react-redux";
+import { setPostFlag } from "../../redux/action/userAction";
 
 
 export const Modal = () => {
 
-    const { userId, profile_img, postFlag, setPostFlag } = useContext(userContext);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const userData = useSelector(state => state.userData.userData)
+    const userImg = useSelector(state => state.userData.userImg)
+    const postFlag = useSelector(state => state.userData.postFlag)
 
     const [loading, setLoading] = useState(false);
 
@@ -192,11 +196,11 @@ export const Modal = () => {
             formData.append("title", title);
             formData.append("description", description);
             formData.append("parent_id", parentId);
-            formData.append("user_id", userId);
+            formData.append("user_id", userData.userId);
 
             formData.append("comment_id", commentId);
             formData.append("reaction_id", reactionId);
-            formData.append("profile_img", profile_img);
+            formData.append("profile_img", userImg);
 
 
             axios.post("https://social-media-neha2.herokuapp.com/post/create", formData)
@@ -254,7 +258,7 @@ export const Modal = () => {
                 <img src={spinner} alt="spinner" />
             </div>
             <div className="post_popup_div">
-                <div className="wrong_symbol" onClick={() => setPostFlag(false)}>✖</div>
+                <div className="wrong_symbol" onClick={() => dispatch(setPostFlag(false))}>✖</div>
                 <div className="post_mainDiv">
 
                     <div onClick={handleClearImgDiv} className="imgCorss">✖</div>

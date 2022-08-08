@@ -2,12 +2,13 @@ import "./MainChat.css";
 import { Conversation } from "../Conversation/Conversation";
 import { Message } from "../Message/Message";
 import { ChatOnline } from "../ChatOnline/ChatOnline";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { userContext } from "../../context/usercontext";
 import { useNavigate } from "react-router-dom";
 import {AiOutlineUser}  from "react-icons/ai";
 import { CgMenuRound } from "react-icons/cg"
+import {useSelector, useDispatch} from 'react-redux'
+import { getFriendData, getFriendImg, setFriendListRefresh } from "../../../redux/action/userAction";
 
 
 export const MainChat = () => {
@@ -20,15 +21,18 @@ export const MainChat = () => {
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
-  const { userId, username, profile_img } = useContext(userContext);
   const scrollRef = useRef();
   const [refresh, setRefresh] = useState(false);
   const [time, setTime] = useState(0)
-  const { setFriendName, friendName, friendImg, friendCity, setFriendImg, setFriendCity, friendListRefresh, setFriendListRefresh } = useContext(userContext)
 
   var timer = useRef(0)
 
   const navigate = useNavigate()
+
+  const dispatch = useDispatch();
+  const friendData =  useSelector(state => state.userData.friendData)
+  const friendImg =  useSelector(state => state.userData.friendImg)
+  const userData =  useSelector(state => state.userData.userData)
 
   useEffect(() => {
     arrivalMessage &&
@@ -40,7 +44,7 @@ export const MainChat = () => {
   useEffect(() => {
     if (currentChat) {
       for (let i = 0; i < currentChat.members.length; i++) {
-        if (currentChat.members[i] !== userId) {
+        if (currentChat.members[i] !== userData.userId) {
           setCurrentFriend(currentChat.members[i])
         }
       }
@@ -49,34 +53,23 @@ export const MainChat = () => {
 
   useEffect(() => {
 
-    axios.get(`https://social-media-neha2.herokuapp.com/users/${currentFriend}`)
-      .then(res => {
-        setFriendName(res.data.name);
-        setFriendCity(res.data.city);
-      }
-      )
-
-    axios.get(`https://social-media-neha2.herokuapp.com/profilepic/get/single?userId=${currentFriend}`)
-      .then(res => {
-       
-        setFriendImg(res.data)
-      })
-      .catch()
+    dispatch(getFriendData(currentFriend))
+    dispatch(getFriendImg(currentFriend))
 
   }, [currentFriend])
 
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const res = await axios.get(`https://social-media-neha2.herokuapp.com/conversation/${userId}`);
+        const res = await axios.get(`https://social-media-neha2.herokuapp.com/conversation/${userData.userId}`);
         setConversations(res.data);
       } catch (err) {
       }
     };
     getConversations();
-    setFriendListRefresh(false)
+     dispatch(setFriendListRefresh(false))
 
-  }, [userId, friendListRefresh]);
+  }, [userData]);
 
   const getMessages = async () => {
     try {
@@ -112,11 +105,11 @@ export const MainChat = () => {
     if (newMessage !== "") {
 
       const receiverId = currentChat.members.find(
-        (member) => member !== userId
+        (member) => member !== userData.userId
       );
 
       const message = {
-        sender: userId,
+        sender: userData.userId,
         receiver: receiverId,
         text: newMessage,
         conversationId: currentChat._id
@@ -146,14 +139,14 @@ export const MainChat = () => {
       
       <>
       {
-        userId!=="undefined"? 
+        userData.userId!=="undefined"? 
         <div className="messenger">
           <div className="chatMenu">
             <div className="chatMenuWrapper">
               <input placeholder="Search for friends" className="chatMenuInput" />
               {conversations.map((c) => {
                 return (<div onClick={() => setCurrentChat(c)}>
-                  <Conversation conversation={c} currentUserName={username} currentUserImg={profile_img} currentUserId={userId} />
+                  <Conversation conversation={c} currentUserName={userData.username} currentUserImg={friendImg} currentUserId={userData.userId} />
                 </div>)
               })}
             </div>
@@ -168,8 +161,8 @@ export const MainChat = () => {
                       <img src={friendImg} className="message_userImg" alt="" />
                     }
                     <div className="post_user">
-                      <p className="post_username">{friendName}</p>
-                      <p className="post_usercity">{friendCity}</p>
+                      <p className="post_username">{friendData.name}</p>
+                      <p className="post_usercity">{friendData.city}</p>
                     </div>
                   </div>
                   <div className="chatBoxTop">
@@ -177,7 +170,7 @@ export const MainChat = () => {
 
                       return (
                         <div ref={scrollRef}>
-                          <Message message={m} senderId={m.sender} userId={userId} />
+                          <Message message={m} senderId={m.sender} userId={userData.userId} />
                         </div>
                       )
                     })}
@@ -212,7 +205,7 @@ export const MainChat = () => {
              
               <ChatOnline
                 onlineUsers={onlineUsers}
-                currentId={userId}
+                currentId={userData.userId}
                 setCurrentChat={setCurrentChat}
               />
             </div>

@@ -1,16 +1,16 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { userContext } from "../../context/usercontext";
+import { useEffect, useState } from "react";
 import { UserDetails } from "../../friends/UserDetails";
 import { Userimage } from "../../Home/user-image";
+import {useDispatch} from 'react-redux'
+import { setFriendListRefresh } from "../../../redux/action/userAction";
 import "./ChatOnline.css";
 import Swal from 'sweetalert2/src/sweetalert2.js'
 
 export const ChatOnline = ({ onlineUsers, currentId, setCurrentChat }) => {
   const [friends, setFriends] = useState([]);
-  const [onlineFriends, setOnlineFriends] = useState([]);
 
-  const { setFriendListRefresh } = useContext(userContext);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const getFriends = async () => {
@@ -43,7 +43,7 @@ export const ChatOnline = ({ onlineUsers, currentId, setCurrentChat }) => {
         icon: 'success',
         title: 'Congrats! a new Conversation'
       })
-      setFriendListRefresh(true);
+      dispatch(setFriendListRefresh(true))
 
     }).catch(err => console.log(err))
   }

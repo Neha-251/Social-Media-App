@@ -1,12 +1,12 @@
 import "./friends.css";
 import axios from "axios"
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { Userimage } from "../Home/user-image";
-import { userContext } from "../context/usercontext";
 import "@sweetalert2/themes/material-ui/material-ui.css";
 import Swal from 'sweetalert2/src/sweetalert2.js'
 import { UserDetails } from "./UserDetails";
 import { useNavigate } from "react-router-dom";
+import {useDispatch, useSelector} from 'react-redux';
 
 export const Friends = () => {
 
@@ -17,16 +17,20 @@ export const Friends = () => {
     const [friendId, setFriendId] = useState("")
     const [ready, setReady] = useState(false)
     const [refresh, setRefresh] = useState(false);
-    const { userId, username, profile_img } = useContext(userContext);
 
     const navigate = useNavigate()
+
+    const dispatch = useDispatch();
+    const userData = useSelector(state => state.userData.userData)
+    const userImg = useSelector(state => state.userData.userImg)
+
 
 
     const getData = () => {
         axios.get("https://social-media-neha2.herokuapp.com/users").then(res => setUsers(res.data))
             .catch(err => console.log(err))
 
-        axios.get(`https://social-media-neha2.herokuapp.com/friends/${userId}`).then(res => {setFriends(res.data[0].friends)})
+        axios.get(`https://social-media-neha2.herokuapp.com/friends/${userData.userId}`).then(res => {setFriends(res.data[0].friends)})
 
     }
 
@@ -35,7 +39,7 @@ export const Friends = () => {
     }, [refresh])
 
     const handleConnect = (id) => {
-        axios.get(`https://social-media-neha2.herokuapp.com/friends/${userId}`)
+        axios.get(`https://social-media-neha2.herokuapp.com/friends/${userData.userId}`)
             .then(res => {
                 if (res.data.length === 0) {
                     setFriendList([]);
@@ -82,7 +86,7 @@ export const Friends = () => {
 
                 let data = {
                     "friendId": friendId,
-                    "userId": userId
+                    "userId": userData.userId
                 }
                 axios.post("https://social-media-neha2.herokuapp.com/friends", data)
                     .then(res => {
@@ -110,7 +114,7 @@ export const Friends = () => {
                 let data = {
                     "friendId": friendId
                 }
-                axios.patch(`https://social-media-neha2.herokuapp.com/friends/add/${userId}`, data)
+                axios.patch(`https://social-media-neha2.herokuapp.com/friends/add/${userData.userId}`, data)
                     .then(res => {
                         const Toast = Swal.mixin({
                             toast: true,
@@ -147,7 +151,7 @@ export const Friends = () => {
     return (
         <>
         {
-            userId!=="undefined"? 
+            userData.userId? 
             <div className="friend_Main_Container">
             <div className="friends_mainDiv1">
                 <h3>Your Friends</h3>

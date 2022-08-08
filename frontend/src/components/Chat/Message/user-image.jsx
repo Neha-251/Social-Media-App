@@ -12,7 +12,7 @@ export const Userimage = (userId) => {
     useEffect(()=> {
         axios.get(`https://social-media-neha2.herokuapp.com/profilepic/get/single?userId=${userId.userId}`)
         .then(res => setPic(res.data)).catch()
-    })
+    }, [userId])
 
 
     return (

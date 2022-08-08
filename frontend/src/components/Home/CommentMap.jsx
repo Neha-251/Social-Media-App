@@ -1,14 +1,14 @@
-import { userContext } from "../context/usercontext"
 import axios from "axios";
-import { useContext, useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { Userimage } from "./user-image";
+import {useDispatch, useSelector} from 'react-redux'
 
 
 
 export const CommentMap = (parentId) => {
 
-    const { profile_img, userId, dataRefresh, refresh } = useContext(userContext);
-
+    const dispatch = useDispatch();
+    const postRefresh = useSelector(state => state.userData.postRefresh)
     const [commentData, setCommentData] = useState([]);
 
     const getComment = () => {
@@ -23,7 +23,7 @@ export const CommentMap = (parentId) => {
     useEffect(() => {
         getComment()
 
-    }, [refresh]);
+    }, [postRefresh]);
 
     return (
         <>
