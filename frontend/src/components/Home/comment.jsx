@@ -16,10 +16,12 @@ export const Comment = (el, setRefresh) => {
     const userData = useSelector(state => state.userData.userData)
     const userImg = useSelector(state => state.userData.userImg)
 
+    console.log('userImg', userImg)
+
 
     const handleClickComment = (id) => {
         let obj = {
-            "user_id": userData.userId,
+            "user_id": userData._id,
             "reaction": commentInp
         }
 

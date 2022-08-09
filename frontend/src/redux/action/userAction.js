@@ -61,17 +61,7 @@ export const setPostFlag = (payload) => {
 }
 
 
-export const getUserData = () => (dispatch) => {
-    let data = {
-        userId: localStorage.getItem("userId_socialMedia"),
-        username: localStorage.getItem("username_socialMedia"),
-        city: localStorage.getItem("usercity_socialMedia"),
-        dob: localStorage.getItem("userdob_socialMedia"),
-        email: localStorage.getItem("useremail_socialMedia")
-    }
-    dispatch(setUserData(data))
-    dispatch(setIsLoggedIn(true))
-}
+
 
 export const getUserImg = (userId) => (dispatch) => {
 

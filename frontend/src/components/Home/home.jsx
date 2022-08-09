@@ -64,7 +64,7 @@ export const Home = () => {
 
     const handleLike = (id, string) => {
         let obj = {
-            "user_id": userData.userId,
+            "user_id": userData._id,
             "reaction": string
         }
 
@@ -113,7 +113,7 @@ export const Home = () => {
         <>
 
             {
-                userData.userId?
+                userData._id?
                     <div>
 
                         <div className="home_mainDiv">
@@ -141,7 +141,6 @@ export const Home = () => {
 
                             {
                                 allData.map((el) => {
-                                    console.log('el', el.profile_img)
                                     return (
                                         <div className="single_post" key={el._id}>
                                             <div className="post_upperDiv">

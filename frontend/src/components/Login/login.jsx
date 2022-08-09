@@ -13,7 +13,6 @@ export const Login = () => {
 
     const dispatch = useDispatch()
     const userData = useSelector(state => state.userData.userData)
-    console.log('userData', userData)
 
 
     const navigate = useNavigate();
@@ -36,6 +35,11 @@ export const Login = () => {
         e.preventDefault();
         axios.post("https://social-media-neha2.herokuapp.com/users/login", data).then(res => {
             axios.get(`https://social-media-neha2.herokuapp.com/users/single?emailId=${data.email}`).then(res => {
+                localStorage.setItem("userId_socialMedia", res.data._id)
+                localStorage.setItem("username_socialMedia", res.data.name)
+                localStorage.setItem("usercity_socialMedia", res.data.city)
+                localStorage.setItem("userdob_socialMedia", res.data.dob)
+                localStorage.setItem("useremail_socialMedia", res.data.email)
                 dispatch(setUserData(res.data))
                 setLoading(false)
                 navigate('/profile')

@@ -24,7 +24,7 @@ export const AllRoutes = () => {
         <Route path="/" element={<Signup />} > </Route>
         <Route path="/login" element={<Login />}> </Route>
         <Route exact path="/profile" element={<Profile />} />
-        <Route exact path="/home" element={<Home />}></Route>
+        <Route exact path="/home" element={<Home />}></Route>register
         <Route exact path="/friends" element={<Friends />} />
         <Route exact path="/chat" element={<MainChat />} />
       </Routes>

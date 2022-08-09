@@ -28,12 +28,12 @@ export const Signup = () => {
     const dispatch = useDispatch()
 
     useEffect(()=>{
-        if(userData.userId && !userImg) {
+        if(userData._id && !userImg) {
             console.log('signup profile')
-            dispatch(getUserImg(userData.userId))
+            dispatch(getUserImg(userData._id))
             navigate('/profile')
         } else {
-            navigate('/profile')
+           
 
         }
     }, [userData])

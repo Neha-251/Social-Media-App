@@ -11,7 +11,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "@sweetalert2/themes/material-ui/material-ui.css";
 import Swal from 'sweetalert2/src/sweetalert2.js'
-import { getUserImg, setUserData, getUserData } from "../../redux/action/userAction";
+import { getUserImg, setUserData, getUserData, setIsLoggedIn, setUserImg } from "../../redux/action/userAction";
 
 export const Navbar = () => {
 
@@ -22,30 +22,27 @@ export const Navbar = () => {
     const userData = useSelector(state=> state.userData.userData)
     const userImg = useSelector(state=> state.userData.userImg)
 
-    console.log('userData', userData)
 
     
     useEffect(()=> {
-        dispatch(getUserData())
+        let data = {
+            _id: localStorage.getItem("userId_socialMedia"),
+            name: localStorage.getItem("username_socialMedia"),
+            city: localStorage.getItem("usercity_socialMedia"),
+            dob: localStorage.getItem("userdob_socialMedia"),
+            email: localStorage.getItem("useremail_socialMedia")
+        }
+        dispatch(setUserData(data))
+        dispatch(setIsLoggedIn(true))
 
     }, [])
 
 
     useEffect(()=> {
-        if(userData.userId && !userImg) {
-            console.log('almost here')
-            dispatch(getUserImg(userData.userId))
-            console.log('userData.userId', userData.userId)
+        if(userData._id && !userImg) {
+            dispatch(getUserImg(userData._id))
         }
     }, [userData])
-
-    useEffect(()=> {
-        console.log('userImg', userImg)
-
-    }, [userImg])
-
-   
-
 
     const handlelogOut = () => {
 
@@ -56,13 +53,13 @@ export const Navbar = () => {
             dispatch(setUserData(data))
 
 
-            localStorage.setItem("userId_socialMedia", undefined)
-            localStorage.setItem("username_socialMedia", undefined)
-            localStorage.setItem("userdob_socialMedia", undefined)
-            localStorage.setItem("usercity_socialMedia", undefined)
-            localStorage.setItem("useremail_socialMedia", undefined)
+            localStorage.removeItem("userId_socialMedia")
+            localStorage.removeItem("username_socialMedia")
+            localStorage.removeItem("userdob_socialMedia")
+            localStorage.removeItem("usercity_socialMedia")
+            localStorage.removeItem("useremail_socialMedia")
 
-            userImg("");
+            dispatch(setUserImg(null));
             navigate("/");
         }
 

@@ -25,10 +25,7 @@ export const Profile = () => {
     const postFlag = useSelector(state => state.userData.postFlag)
 
 
-    useEffect(()=> {
-        userData.userId && !userImg && dispatch(getUserImg(userData.userId))
 
-    }, [userData])
 
     const handleProfilePicChange = (e) => {
 
@@ -124,7 +121,9 @@ export const Profile = () => {
     }
 
     const handlePostBtn = () => {
-        if (userData._id) {
+        
+        if (userData.userId) {
+            
              dispatch(setPostFlag(true))
         } else {
             const Toast = Swal.mixin({
@@ -160,9 +159,7 @@ export const Profile = () => {
     const [user_id, setUser_id] = useState('')
     useEffect(() => {
         setUser_id(localStorage.getItem('userId_socialMedia'))
-        console.log('localStorage.getItem(\'userId_socialMedia\')', localStorage.getItem('userId_socialMedia'))
     }, [])
-
 
     return (
         <>
@@ -179,7 +176,8 @@ export const Profile = () => {
 
                         <div className="profile_mainDiv">
                             <div className="profile_pic_div">
-                                <img src={profilePicPreview === "" ? userImg : profilePicPreview} className="profile_img" alt="profile_pic" />
+                                <img src={userImg ? userImg : profilePicPreview} className="profile_img" alt="profile_pic" />
+                                
                             </div>
 
 
@@ -191,7 +189,7 @@ export const Profile = () => {
 
                         <div className="userDetails">
                             <div className="showUserDetails">
-                                <p>Name: {userData.username}</p>
+                                <p>Name: {userData.name}</p>
                                 <p>Date of Birth: {userData.dob}</p>
                                 <p>City: {userData.city}</p>
                                 <p>Email: {userData.email}</p>
@@ -216,7 +214,7 @@ export const Profile = () => {
                 (<div style={{ width: "300px", margin: '50px auto' }}>
                     <div>You are not logged in Please login</div>
 
-                    <button className="normal_btn" onClick={() => navigate("/register")}>Login</button>
+                    <button className="normal_btn" onClick={() => navigate("/login")}>Login</button>
                 </div>)
             }
 
